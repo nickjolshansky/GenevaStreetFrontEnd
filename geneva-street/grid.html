@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        scrollbar-width: 20px;
+        scrollbar-color: #000000 #f1f1f100;
+      }
+
+      body {
+        background-color: rgb(35, 62, 112);
+        margin: 0;
+        padding: 0;
+      }
+
+      .nav-bar {
+        margin-left: 15px;
+        margin-right: 15px;
+        padding-left: 15px;
+        padding-right: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        background-color: rgb(132, 150, 215);
+        border-bottom-left-radius: 30px;
+        border-bottom-right-radius: 30px;
+        box-shadow: 5px 8px 10px rgb(27, 46, 80);
+      }
+
+      .search-bar {
+        width: 70%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: rgb(132, 150, 215);
+        border-bottom-left-radius: 30px;
+        border-bottom-right-radius: 30px;
+        margin: 0 auto;
+        margin-bottom: 20px;
+        box-shadow: 5px 8px 10px rgb(27, 46, 80);
+      }
+      .search-bar input {
+        height: 2rem;
+        width: 90%;
+        margin-top: 5px;
+        border: 2px solid black;
+        border-top-left-radius: 30px;
+        border-top-right-radius: 30px;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        text-align: center;
+        z-index: 1;
+      }
+      .search-options {
+        width: 80%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transform: translateY(-5%);
+      }
+      .search-options > button {
+        width: 50px;
+        height: 70px;
+        padding-top: 20px;
+        border-bottom-left-radius: 30px;
+        border-bottom-right-radius: 30px;
+        border: 2px solid black;
+        cursor: pointer;
+      }
+      .search-options > button:hover {
+        transform: translateY(0px);
+      }
+      .search-options > button:not(:hover) {
+        transform: translateY(-10px);
+      }
+      .search-options > button > img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      .grid-container {
+        margin: 20px;
+        justify-content: center;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(50px, 250px));
+        grid-gap: 20px;
+      }
+      .grid-item {
+        padding: 10px;
+        padding-bottom: 5px;
+        background-color: rgb(132, 150, 215);
+        border-radius: 10px;
+        box-shadow: 5px 8px 10px rgb(27, 46, 80);
+      }
+      .grid-item > img {
+        width: 100%;
+        object-fit: contain;
+        border: 2px solid black;
+        border-radius: 10px;
+      }
+      .grid-item-text {
+        display: grid;
+        grid-gap: 5px;
+        grid-template-columns: 1fr 1fr;
+        grid-auto-rows: max-content;
+      }
+      .grid-item > h4 {
+        width: 100%;
+        margin: 0;
+        text-align: center;
+      }
+      .grid-item-location {
+        text-align: center;
+        grid-column: 1 / 2;
+        border-bottom: 2px solid black;
+      }
+      .grid-item-year {
+        text-align: center;
+        grid-column: 2 / 3;
+        border-bottom: 2px solid black;
+      }
+      .grid-item-description {
+        text-align: left;
+        grid-column: 1 / 3;
+      }
+
+      #icon-container {
+        height: 110px;
+        width: 90%;
+        display: block;
+        margin: 0 auto;
+        overflow-x: auto;
+        white-space: nowrap;
+      }
+      .icon {
+        width: 50px;
+        margin-top: 20px;
+        margin-right: 5px;
+        border: 4px solid black;
+        border-radius: 80px;
+      }
+      .icon:hover {
+        transform: scale(1.1);
+        box-shadow: 6px 10px 9px rgb(27, 46, 80);
+      }
+      .icon:not(:hover) {
+        transform: scale(1);
+        box-shadow: 2px 6px 8px rgb(27, 46, 80);
+      }
+
+      select {
+        background-color: rgb(132, 150, 215);
+        padding: 4px;
+        border: none;
+        outline: none;
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        cursor: pointer;
+      }
+
+      .video-container {
+        width: 100%;
+      }
+      .video-container > video {
+        width: 90%;
+        display: block;
+        margin: 0 auto;
+        border-radius: 40px;
+      }
+      /* #video-icon-container{
+            height: 110px;
+            width: 90%;
+            display: block;
+            margin: 0 auto;
+            overflow-x: auto;
+            white-space: nowrap;
+        } */
+      #video-icon-container {
+        margin-top: 20px;
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: start;
+        flex-wrap: wrap;
+      }
+      .video-icon {
+        width: 50px;
+        margin: 5px;
+        border-radius: 80px;
+      }
+      .video-icon:hover {
+        transform: scale(1.1);
+        box-shadow: 6px 10px 9px rgb(27, 46, 80);
+      }
+      .video-icon:not(:hover) {
+        transform: scale(1);
+        box-shadow: 2px 6px 8px rgb(27, 46, 80);
+      }
+
+      video::-webkit-media-controls-timeline {
+        background-color: #ff0000;
+        height: 6px;
+      }
+
+      .img-test {
+        width: 30vw;
+        height: 16.8vw;
+      }
+
+      .hover-text {
+        position: relative;
+        display: block;
+        margin-left: 40%;
+        color: white;
+        cursor: default;
+      }
+
+      .hover-text .tooltip {
+        visibility: hidden;
+        width: 120px;
+        background-color: black;
+        color: #fff;
+        text-align: center;
+        border-radius: 6px;
+        padding: 5px 0;
+        position: absolute;
+        z-index: 1;
+        top: 150%;
+        left: 50%;
+        margin-left: -60px;
+        opacity: 0;
+        transition: opacity 0.3s;
+      }
+
+      .hover-text:hover .tooltip {
+        visibility: visible;
+        opacity: 1;
+      }
+
+      .year-contents-container {
+        margin-top: 40px;
+        margin-bottom: 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .year-contents-container > .year {
+        display: none;
+        width: 300px;
+        height: 600px;
+        padding: 10px;
+        margin: 2px;
+        border-radius: 8px;
+        background-color: lightblue;
+      }
+
+      .slider-container {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        margin-top: 200px;
+      }
+
+      .slider {
+        width: 90vw;
+        height: 20px;
+        outline: none;
+        opacity: 0.7;
+        -webkit-transition: 0.2s;
+        transition: opacity 0.2s;
+      }
+
+      .slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        background-color: #4caf50;
+        cursor: pointer;
+      }
+
+      .slider::-moz-range-thumb {
+        width: 20px;
+        height: 20px;
+        background-color: #4caf50;
+        cursor: pointer;
+      }
+
+      .slider-value {
+        margin-left: 10px;
+        font-size: 16px;
+      }
+
+      .text-on-video {
+        width: 40%;
+        display: grid;
+        place-items: center;
+        margin: 0 auto;
+      }
+      .text-on-video > * {
+        grid-column: 1 / -1;
+        grid-row: 1 / -1;
+      }
+      .text-on-video > video {
+        z-index: -1;
+        width: 90%;
+        display: block;
+        margin: 0 auto;
+      }
+      .text-on-video > h1 {
+        color: white;
+      }
+
+      .year {
+        display: none;
+        width: 300px;
+        height: 400px;
+        padding: 10px;
+        margin: 2px;
+        border-radius: 8px;
+        background-color: lightblue;
+      }
+    </style>
+    <script>
+      function updatePlaceholder(placeholder) {
+        const searchInput = document.getElementById("search-input");
+        searchInput.placeholder = `Search by ${placeholder}`;
+      }
+    </script>
+  </head>
+  <body>
+    <div class="nav-bar">
+      <img src="./1.svg" width="30px" />
+      <img src="./2.svg" width="30px" />
+      <h2>Website</h2>
+      <img src="./3.svg" width="30px" />
+      <img src="./4.svg" width="30px" />
+    </div>
+
+    <div class="search-bar">
+      <input
+        id="search-input"
+        type="text"
+        placeholder="Search by Name"
+        onfocus="this.placeholder='';"
+        onblur="this.placeholder='Search';"
+      />
+
+      <div class="search-options">
+        <button onclick="updatePlaceholder('Name')" title="Name">
+          <img src="./1.svg" />
+        </button>
+        <button onclick="updatePlaceholder('Location')" title="Location">
+          <img src="./2.svg" />
+        </button>
+        <button onclick="updatePlaceholder('Year')" title="Year">
+          <img src="./3.svg" />
+        </button>
+        <button onclick="updatePlaceholder('Title')" title="Advanced">
+          <img src="./4.svg" />
+        </button>
+      </div>
+      <a href="file:///C:/Users/empl7676/Desktop/Test/GridFun/grid.html#what"
+        >Here be the link</a
+      >
+      <p id="icon-result" style="text-align: center"></p>
+      <div id="icon-container">
+        <img class="icon" src="./1.svg" alt="1" />
+        <img class="icon" src="./1.svg" alt="2" />
+        <img class="icon" src="./1.svg" alt="3" />
+        <img class="icon" src="./1.svg" alt="4" />
+        <img class="icon" src="./1.svg" alt="5" />
+        <img class="icon" src="./1.svg" alt="6" />
+        <img class="icon" src="./1.svg" alt="7" />
+        <img class="icon" src="./1.svg" alt="8" />
+        <img class="icon" src="./1.svg" alt="9" />
+        <img class="icon" src="./1.svg" alt="10" />
+        <img class="icon" src="./1.svg" alt="11" />
+        <img class="icon" src="./1.svg" alt="12" />
+        <img class="icon" src="./1.svg" alt="13" />
+        <img class="icon" src="./1.svg" alt="14" />
+        <img class="icon" src="./1.svg" alt="15" />
+        <img class="icon" src="./1.svg" alt="16" />
+        <img class="icon" src="./1.svg" alt="17" />
+        <img class="icon" src="./1.svg" alt="18" />
+        <img class="icon" src="./1.svg" alt="19" />
+        <img class="icon" src="./1.svg" alt="20" />
+        <img class="icon" src="./1.svg" alt="21" />
+        <img class="icon" src="./1.svg" alt="22" />
+        <img class="icon" src="./1.svg" alt="23" />
+        <img class="icon" src="./1.svg" alt="24" />
+        <img class="icon" src="./1.svg" alt="25" />
+        <img class="icon" src="./1.svg" alt="26" />
+        <img class="icon" src="./1.svg" alt="27" />
+        <img class="icon" src="./1.svg" alt="28" />
+        <img class="icon" src="./1.svg" alt="29" />
+        <img class="icon" src="./1.svg" alt="30" />
+        <img class="icon" src="./1.svg" alt="31" />
+        <img class="icon" src="./1.svg" alt="32" />
+        <img class="icon" src="./1.svg" alt="33" />
+      </div>
+    </div>
+
+    <div class="video-container">
+      <video controls src="test.mp4"></video>
+      <div id="video-icon-container">
+        <img
+          class="video-icon"
+          src="./1.svg"
+          title="person name here"
+          alt="1"
+        />
+        <img
+          class="video-icon"
+          src="./1.svg"
+          title="person name here"
+          alt="2"
+        />
+        <img
+          class="video-icon"
+          src="./1.svg"
+          title="person name here"
+          alt="3"
+        />
+        <img
+          class="video-icon"
+          src="./1.svg"
+          title="person name here"
+          alt="4"
+        />
+        <img
+          class="video-icon"
+          src="./1.svg"
+          title="person name here"
+          alt="5"
+        />
+        <img
+          class="video-icon"
+          src="./1.svg"
+          title="person name here"
+          alt="6"
+        />
+        <img
+          class="video-icon"
+          src="./1.svg"
+          title="person name here"
+          alt="7"
+        />
+        <img
+          class="video-icon"
+          src="./1.svg"
+          title="person name here"
+          alt="8"
+        />
+        <img
+          class="video-icon"
+          src="./1.svg"
+          title="person name here"
+          alt="9"
+        />
+        <img
+          class="video-icon"
+          src="./1.svg"
+          title="person name here"
+          alt="10"
+        />
+        <img
+          class="video-icon"
+          src="./1.svg"
+          title="person name here"
+          alt="11"
+        />
+        <img
+          class="video-icon"
+          src="./1.svg"
+          title="person name here"
+          alt="12"
+        />
+        <img
+          class="video-icon"
+          src="./1.svg"
+          title="person name here"
+          alt="13"
+        />
+        <img
+          class="video-icon"
+          src="./1.svg"
+          title="person name here"
+          alt="14"
+        />
+        <img
+          class="video-icon"
+          src="./1.svg"
+          title="person name here"
+          alt="15"
+        />
+        <img
+          class="video-icon"
+          src="./1.svg"
+          title="person name here"
+          alt="16"
+        />
+        <img
+          class="video-icon"
+          src="./1.svg"
+          title="person name here"
+          alt="17"
+        />
+        <img
+          class="video-icon"
+          src="./1.svg"
+          title="person name here"
+          alt="18"
+        />
+        <img
+          class="video-icon"
+          src="./1.svg"
+          title="person name here"
+          alt="19"
+        />
+        <img
+          class="video-icon"
+          src="./1.svg"
+          title="person name here"
+          alt="20"
+        />
+        <img
+          class="video-icon"
+          src="./1.svg"
+          title="person name here"
+          alt="21"
+        />
+        <img
+          class="video-icon"
+          src="./1.svg"
+          title="person name here"
+          alt="22"
+        />
+        <img
+          class="video-icon"
+          src="./1.svg"
+          title="person name here"
+          alt="23"
+        />
+        <img
+          class="video-icon"
+          src="./1.svg"
+          title="person name here"
+          alt="24"
+        />
+        <img
+          class="video-icon"
+          src="./1.svg"
+          title="person name here"
+          alt="25"
+        />
+        <img
+          class="video-icon"
+          src="./1.svg"
+          title="person name here"
+          alt="26"
+        />
+        <img
+          class="video-icon"
+          src="./1.svg"
+          title="person name here"
+          alt="27"
+        />
+        <img
+          class="video-icon"
+          src="./1.svg"
+          title="person name here"
+          alt="28"
+        />
+        <img
+          class="video-icon"
+          src="./1.svg"
+          title="person name here"
+          alt="29"
+        />
+        <img
+          class="video-icon"
+          src="./1.svg"
+          title="person name here"
+          alt="30"
+        />
+        <img
+          class="video-icon"
+          src="./1.svg"
+          title="person name here"
+          alt="31"
+        />
+        <img
+          class="video-icon"
+          src="./1.svg"
+          title="person name here"
+          alt="32"
+        />
+        <img
+          class="video-icon"
+          src="./1.svg"
+          title="person name here"
+          alt="33"
+        />
+      </div>
+    </div>
+
+    <div
+      class="recognize"
+      style="
+        margin: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      "
+    >
+      <label
+        class="recognize-label"
+        style="
+          padding: 15px;
+          text-align: center;
+          color: #000000;
+          background-color: white;
+          border-radius: 5px;
+          background-color: rgb(132, 150, 215);
+          cursor: pointer;
+          display: inline-flex;
+          align-items: center;
+          border-radius: 6px;
+          box-shadow: 1px 3px 4px rgb(27, 46, 80);
+        "
+      >
+        I recognize
+        <select style="padding-top: -5px">
+          <option value="" disabled selected>something!</option>
+          <option value="option1">a person</option>
+          <option value="option2">the year</option>
+          <option value="option3">the location</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="text-on-video">
+      <video src="test.mp4" autoplay muted></video>
+      <h1>Hello There</h1>
+    </div>
+
+    <div class="grid-container">
+      <div class="grid-item">
+        <h4>Title</h4>
+        <img src="./t.png" />
+        <div class="grid-item-text">
+          <span class="grid-item-location">Location</span>
+          <span class="grid-item-year">Year</span>
+          <span class="grid-item-description"
+            >Consectetur adipiscing elit. Facilisis sceler. Class apt tati
+            sociosqu ad litora torquent per conubia nostra, per inceptos
+            himenaeos.</span
+          >
+        </div>
+      </div>
+      <div class="grid-item">
+        <h4 class="grid-item-title">Title</h4>
+        <img src="./t.png" />
+        <div class="grid-item-text">
+          <span class="grid-item-location">Location</span>
+          <span class="grid-item-year">Year</span>
+          <span class="grid-item-description"
+            >Consectetur adipiscing elit. Facilisis sceler. Class apt tati
+            sociosqu ad litora torquent per conubia nostra, per inceptos
+            himenaeos.</span
+          >
+        </div>
+      </div>
+      <div class="grid-item">
+        <h4 class="grid-item-title">Title</h4>
+        <img src="./t.png" />
+        <div class="grid-item-text">
+          <span class="grid-item-location">Location</span>
+          <span class="grid-item-year">Year</span>
+          <span class="grid-item-description"
+            >Consectetur adipiscing elit. Facilisis sceler. Class apt tati
+            sociosqu ad litora torquent per conubia nostra, per inceptos
+            himenaeos.</span
+          >
+        </div>
+      </div>
+      <div class="grid-item">
+        <h4 class="grid-item-title">Title</h4>
+        <img src="./t.png" />
+        <div class="grid-item-text">
+          <span class="grid-item-location">Location</span>
+          <span class="grid-item-year">Year</span>
+          <span class="grid-item-description"
+            >Consectetur adipiscing elit. Facilisis sceler. Class apt tati
+            sociosqu ad litora torquent per conubia nostra, per inceptos
+            himenaeos.</span
+          >
+        </div>
+      </div>
+      <div class="grid-item">
+        <h4 class="grid-item-title">Title</h4>
+        <img src="./t.png" />
+        <div class="grid-item-text">
+          <span class="grid-item-location">Location</span>
+          <span class="grid-item-year">Year</span>
+          <span class="grid-item-description"
+            >Consectetur adipiscing elit. Facilisis sceler. Class apt tati
+            sociosqu ad litora torquent per conubia nostra, per inceptos
+            himenaeos.</span
+          >
+        </div>
+      </div>
+      <div class="grid-item">
+        <h4 class="grid-item-title">Title</h4>
+        <img src="./t.png" />
+        <div class="grid-item-text">
+          <span class="grid-item-location">Location</span>
+          <span class="grid-item-year">Year</span>
+          <span class="grid-item-description"
+            >Consectetur adipiscing elit. Facilisis sceler. Class apt tati
+            sociosqu ad litora torquent per conubia nostra, per inceptos
+            himenaeos.</span
+          >
+        </div>
+      </div>
+      <div class="grid-item">
+        <h4 class="grid-item-title">Title</h4>
+        <img src="./t.png" />
+        <div class="grid-item-text">
+          <span class="grid-item-location">Location</span>
+          <span class="grid-item-year">Year</span>
+          <span class="grid-item-description"
+            >Consectetur adipiscing elit. Facilisis sceler. Class apt tati
+            sociosqu ad litora torquent per conubia nostra, per inceptos
+            himenaeos.</span
+          >
+        </div>
+      </div>
+      <div class="grid-item">
+        <h4 class="grid-item-title">Title</h4>
+        <img src="./t.png" />
+        <div class="grid-item-text">
+          <span class="grid-item-location">Location</span>
+          <span class="grid-item-year">Year</span>
+          <span class="grid-item-description"
+            >Consectetur adipiscing elit. Facilisis sceler. Class apt tati
+            sociosqu ad litora torquent per conubia nostra, per inceptos
+            himenaeos.</span
+          >
+        </div>
+      </div>
+    </div>
+
+    <!-- 
+    <div class="hover-text">
+      Title with words cutoff...
+      <span class="tooltip">The full title is displayed here!</span>
+    </div> 
+    -->
+
+    <div class="year-contents-container">
+      <div class="slider-container">
+        <span class="slider-value" id="sliderValue">2000</span>
+        <input
+          type="range"
+          min="1990"
+          max="2005"
+          step="1"
+          value="2000"
+          class="slider"
+          id="myRange"
+        />
+      </div>
+      <div
+        class="year"
+        style="display: flex; flex-direction: column; align-items: center"
+      >
+        <h3 id="year-label">TEST</h3>
+        <div
+          style="display: flex; justify-content: center; align-items: center"
+        >
+          <u>People</u> &nbsp; |&nbsp; Videos &nbsp; | &nbsp; Pictures
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const container = document.getElementById("icon-container");
+      const resultElement = document.getElementById("icon-result");
+      let clickedImages = [];
+
+      container.addEventListener("click", (event) => {
+        if (event.target.classList.contains("icon")) {
+          const imageName = event.target.alt;
+          const imageIndex = clickedImages.indexOf(imageName);
+
+          if (imageIndex === -1) {
+            clickedImages.push(imageName);
+            if (clickedImages.length === 1)
+              resultElement.textContent = `${imageName}`;
+            else resultElement.textContent = clickedImages.join("-");
+          } else {
+            clickedImages.splice(imageIndex, 1);
+            resultElement.textContent = clickedImages.join("-");
+          }
+        }
+      });
+    </script>
+
+    <script>
+      const slider = document.getElementById("myRange");
+      const sliderValue = document.getElementById("sliderValue");
+
+      slider.addEventListener("input", function () {
+        sliderValue.textContent = this.value;
+        const currentYear = parseInt(this.value);
+        document.getElementById(
+          "year-label"
+        ).textContent = `${sliderValue.textContent}`;
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,16 @@
+.app {
+  width: 100vw;
+}
+::-webkit-scrollbar {
+  width: 8px; /* width of the scrollbar */
+  height: 8px; /* height of the scrollbar */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #9c9c9c; /* color of the scrollbar thumb */
+  border-radius: 4px; /* rounded corners */
+}
+
+::-webkit-scrollbar-track {
+  background-color: #f0f0f0; /* color of the scrollbar track */
+}

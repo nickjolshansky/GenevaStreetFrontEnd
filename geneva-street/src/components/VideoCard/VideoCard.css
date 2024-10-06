@@ -1,0 +1,30 @@
+.video-card {
+  height: 93%;
+  padding: 10px;
+  padding-bottom: 5px;
+  background-color: var(--primary);
+  border-radius: 10px;
+  color: black;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+.video-card > img {
+  width: 100%;
+  object-fit: contain;
+  border: 2px solid black;
+  border-radius: 10px;
+}
+.video-card > h4 {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+.video-card > h5 {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}

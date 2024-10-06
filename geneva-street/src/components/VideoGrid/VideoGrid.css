@@ -1,0 +1,8 @@
+.video-grid {
+  margin: 0 auto;
+  display: grid;
+  justify-content: center;
+  grid-template-columns: repeat(auto-fit, minmax(50px, 250px));
+  grid-gap: 2vw;
+  max-width: 1240px;
+}

@@ -1,0 +1,78 @@
+.search-accordion {
+  width: 90%;
+  max-width: 700px;
+  margin: 1rem auto;
+  margin-top: 10dvh;
+}
+
+.search-input {
+  width: 100%;
+  padding-right: 1rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.search-location {
+  margin: 0 auto;
+  margin-top: 1rem;
+}
+
+.search-slider {
+  width: 100%;
+  display: flex;
+  gap: 1rem;
+}
+
+.icon-container {
+  padding: 10px;
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  max-width: 95%;
+  height: 60px;
+  margin: 1rem auto;
+}
+
+.icon {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+  border-radius: 50%;
+  background-color: aqua;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+  object-fit: fill;
+}
+
+.icon:hover {
+  transform: scale(1.1);
+}
+
+.icon:last-child {
+  margin-right: 0;
+}
+
+.icon-container::-webkit-scrollbar {
+  height: 0px;
+}
+
+.icon-container::-webkit-scrollbar-track {
+  background: #333;
+  border-radius: 4px;
+}
+
+.icon-container::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.icon-container::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+.icon-selected {
+  width: 45px;
+  height: 45px;
+  border: solid rgb(222, 29, 29) 4px;
+}
