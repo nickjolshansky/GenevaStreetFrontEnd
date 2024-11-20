@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./VideoSearch.css";
-import { rootsrc } from "../../utils/source";
+import { rootsrc, profilesrc } from "../../../utils/source";
 import {
   TextField,
   Slider,
@@ -29,7 +29,13 @@ function VideoSearch() {
 
   //Just for getting all video data
   useEffect(() => {
-    fetch(`${rootsrc}/videos`)
+    fetch(`${rootsrc}/videos`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
         setSearchedVideos(data);
@@ -41,7 +47,13 @@ function VideoSearch() {
 
   //all people
   useEffect(() => {
-    fetch(`${rootsrc}/people`)
+    fetch(`${rootsrc}/people`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
         setAllPeople(data);
@@ -53,7 +65,13 @@ function VideoSearch() {
 
   //all locations
   useEffect(() => {
-    fetch(`${rootsrc}/videos/locations`)
+    fetch(`${rootsrc}/videos/locations`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
         setAllLocations(data);
@@ -103,7 +121,7 @@ function VideoSearch() {
         location: selectedLocation,
       };
 
-      fetch(`${rootsrc}/Videos/advanced-search/`, {
+      fetch(`${rootsrc}/Videos/search/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -118,7 +136,13 @@ function VideoSearch() {
           console.error("Error fetching all location data:", error);
         });
     } else {
-      fetch(`${rootsrc}/Videos/title/${searchTitleRef.current.value}`)
+      fetch(`${rootsrc}/Videos/title/${searchTitleRef.current.value}`, {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      })
         .then((response) => response.json())
         .then((data) => {
           setSearchedVideos(Array.isArray(data) ? data : []);
@@ -131,10 +155,12 @@ function VideoSearch() {
 
   return (
     <>
-      <div className="search-accordion">
+      <div className="search-accordion-container">
+        <h1 style={{ textAlign: "center" }}>Videos</h1>
         <Accordion
           disableGutters
           onChange={(e, isExpanded) => setSearchExpanded(isExpanded)}
+          sx={{ color: "red.contrast", bgcolor: "red.main" }}
         >
           <AccordionSummary expandIcon={<TuneIcon />}>
             <div className="search-input">
@@ -159,21 +185,29 @@ function VideoSearch() {
           <AccordionDetails>
             <div id="icon-container-id" className="icon-container">
               {allPeople.length > 0 &&
-                allPeople.map((person) => (
-                  <Tooltip title={person.first_name} key={person.id}>
-                    <img
-                      key={person.id}
-                      className={`icon ${
-                        selectedPeople.includes(person.id)
-                          ? "icon-selected"
-                          : ""
-                      }`}
-                      src={`${rootsrc}/People/pokemon-src/${person.picture}`}
-                      alt={person.first_name}
-                      onClick={(e) => onPersonSelect(e, person)}
-                    />
-                  </Tooltip>
-                ))}
+                allPeople
+                  .sort((a, b) => {
+                    const firstNameCompare = a.first_name.localeCompare(
+                      b.first_name
+                    );
+                    if (firstNameCompare !== 0) return firstNameCompare;
+                    return a.last_name.localeCompare(b.last_name);
+                  })
+                  .map((person) => (
+                    <Tooltip title={person.first_name} key={person.id}>
+                      <img
+                        key={person.id}
+                        className={`icon ${
+                          selectedPeople.includes(person.id)
+                            ? "icon-selected"
+                            : ""
+                        }`}
+                        src={`${profilesrc}${person.picture}`}
+                        alt={person.first_name}
+                        onClick={(e) => onPersonSelect(e, person)}
+                      />
+                    </Tooltip>
+                  ))}
             </div>
             <div className="search-slider">
               <span>{yearRange[0]}</span>
@@ -192,7 +226,7 @@ function VideoSearch() {
                 fullWidth
                 value={selectedLocation}
                 onChange={(e, newValue) => setSelectedLocation(newValue)}
-                options={allLocations}
+                options={allLocations.sort()}
                 getOptionLabel={(option) => option}
                 isOptionEqualToValue={(option, value) => option === value}
                 renderInput={(params) => (

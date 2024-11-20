@@ -6,3 +6,8 @@
   grid-gap: 2vw;
   max-width: 1240px;
 }
+
+.video-grid-link {
+  color: var(--primary-constrast);
+  text-decoration: none;
+}

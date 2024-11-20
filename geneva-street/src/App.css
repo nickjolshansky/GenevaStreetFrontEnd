@@ -1,6 +1,12 @@
 .app {
-  width: 100vw;
+  width: 99dvw;
+  background-color: var(--background-main);
+  color: var(--background-contrast);
 }
+.under-nav {
+  margin: 10dvh auto 10dvh;
+}
+
 ::-webkit-scrollbar {
   width: 8px; /* width of the scrollbar */
   height: 8px; /* height of the scrollbar */

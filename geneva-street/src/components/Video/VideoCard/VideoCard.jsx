@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import "./VideoCard.css";
-import { rootsrc } from "./../../utils/source";
+import { thumbnailsrc } from "./../../../utils/source";
 
 function VideoCard({ video }) {
   const [hasLoaded, setHasLoaded] = useState(false);
-  const [imageSrc, setImageSrc] = useState("/thumbnailTemp.jpg");
-  const thumbnailUrl = `${rootsrc}/videos/thumbnail-src/${video.thumbnail}`;
+  const [imageSrc, setImageSrc] = useState("/static.jpg");
+  const thumbnailUrl = `${thumbnailsrc}${video.thumbnail}`;
 
   const handleImageLoad = () => {
     setHasLoaded(true);

@@ -1,0 +1,9 @@
+.add-page {
+  display: flex;
+}
+
+@media (max-width: 768px) {
+  .add-page {
+    flex-direction: column;
+  }
+}

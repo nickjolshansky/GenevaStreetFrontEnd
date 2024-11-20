@@ -1,23 +1,40 @@
-import React, { useState } from "react";
+import React from "react";
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
-import VideoGrid from "./components/VideoGrid/VideoGrid.jsx";
-import VideoPage from "./components/VideoPage/VideoPage.jsx";
+import CssBaseline from "@mui/material/CssBaseline";
+import VideoPage from "./components/Video/VideoPage/VideoPage.jsx";
 import Nav from "./components/Nav/Nav.jsx";
-import VideoSearch from "./components/VideoSearch/VideoSearch";
+import VideoSearch from "./components/Video/VideoSearch/VideoSearch";
+import UnityTest from "./components/UnityTest/UnityTest.jsx";
+import { ThemeProvider } from "@mui/material";
+import { theme } from "./theme/theme";
+import "./theme/variables.css";
+import AlbumGrid from "./components/Album/AlbumGrid/AlbumGrid.jsx";
+import AlbumPage from "./components/Album/AlbumPage/AlbumPage.jsx";
+import PersonPage from "./components/People/PersonPage/PersonPage.jsx";
+import AddPage from "./components/People/AddPage/AddPage.jsx";
+import BirthdayPage from "./components/People/BirthdayPage/BirthdayPage.jsx";
 
 function App() {
   return (
-    <div className="app">
-      <Nav />
-      <Routes>
-        <Route path="/videos" element={<VideoSearch />} />
-        <Route path="/videos/:id" element={<VideoPage />} />
-      </Routes>
-    </div>
+    <ThemeProvider theme={theme}>
+      <div className="app">
+        <Nav />
+        <div className="under-nav">
+          <Routes>
+            <Route path="/unity" element={<UnityTest />} />
+            <Route path="/videos" element={<VideoSearch />} />
+            <Route path="/videos/:id" element={<VideoPage />} />
+            <Route path="/albums" element={<AlbumGrid />} />
+            <Route path="/albums/:id" element={<AlbumPage />} />
+            <Route path="/person/:id" element={<PersonPage />} />
+            <Route path="/birthdays" element={<BirthdayPage />} />
+            <Route path="/add" element={<AddPage />} />
+          </Routes>
+        </div>
+      </div>
+    </ThemeProvider>
   );
 }
 
 export default App;
-
-//time stamp in thumbnail

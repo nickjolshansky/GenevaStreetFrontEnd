@@ -11,6 +11,7 @@ function VideoGrid({ videos = [] }) {
           videos.map((video) => (
             <Link
               key={video.id}
+              className="video-grid-link"
               to={`/videos/${video.id}`}
               style={{ textDecoration: "none" }}
             >

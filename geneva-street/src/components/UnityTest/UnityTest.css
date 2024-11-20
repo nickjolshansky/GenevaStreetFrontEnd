@@ -1,0 +1,12 @@
+.unity-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Adjust as needed */
+}
+
+.unity {
+  width: 80%;
+  height: 80%;
+  border: none;
+}

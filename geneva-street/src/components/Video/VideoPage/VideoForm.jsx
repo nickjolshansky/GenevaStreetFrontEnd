@@ -11,19 +11,26 @@ import {
   InputLabel,
   FormControl,
 } from "@mui/material";
-import { rootsrc } from "../../utils/source";
+import { rootsrc } from "../../../utils/source";
 import "./VideoForm.css";
 
 function VideoForm({ video }) {
+  const [yearValue, setYearValue] = useState(null);
   const [allPeople, setAllPeople] = useState([]);
   const [allLocations, setAllLocations] = useState([]);
   const [newTaggedPeople, setNewTaggedPeople] = useState([]);
   const [selectedLocation, setSelectedLocation] = useState(null);
-  const yearRef = useRef();
+  const [submitStatus, setSubmitStatus] = useState(null);
 
   //all people
   useEffect(() => {
-    fetch(`${rootsrc}/people`)
+    fetch(`${rootsrc}/people`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
         setAllPeople(data);
@@ -35,7 +42,13 @@ function VideoForm({ video }) {
 
   //all locations
   useEffect(() => {
-    fetch(`${rootsrc}/videos/locations`)
+    fetch(`${rootsrc}/videos/locations`, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
         setAllLocations(data);
@@ -47,10 +60,10 @@ function VideoForm({ video }) {
 
   const onFormSubmit = async () => {
     try {
+      setSubmitStatus("submitting");
       const updateData = {};
 
-      if (yearRef.current?.value && !isNaN(yearRef.current?.value))
-        updateData.year = yearRef.current.value;
+      if (yearValue && !isNaN(yearValue)) updateData.year = yearValue;
 
       if (selectedLocation) updateData.location = selectedLocation;
 
@@ -65,15 +78,21 @@ function VideoForm({ video }) {
         }
       }
 
-      await fetch(`${rootsrc}/Videos/${video.id}`, {
+      const response = await fetch(`${rootsrc}/Videos/${video.id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(updateData),
       });
+
+      if (!response.ok) throw new Error("Submission failed");
+      setSubmitStatus("success");
+      setTimeout(() => setSubmitStatus(null), 3000);
     } catch (error) {
       console.error("Error making API call:", error);
+      setSubmitStatus("error");
+      setTimeout(() => setSubmitStatus(null), 3000);
     }
   };
 
@@ -81,14 +100,17 @@ function VideoForm({ video }) {
     <div className="video-form">
       <FormControl>
         <TextField
-          id="standard-basic"
-          label="Year"
-          variant="outlined"
-          inputRef={yearRef}
-          inputProps={{
-            inputMode: "numeric",
-            pattern: "[0-9]*",
+          sx={{
+            color: "black",
+            bgcolor: "accent.main",
+            borderRadius: "4px",
           }}
+          id="standard-basic"
+          label="Year (Not required)"
+          variant="outlined"
+          value={yearValue}
+          onChange={(e) => setYearValue(e.target.value)}
+          type="number"
         />
       </FormControl>
       <FormControl>
@@ -96,14 +118,16 @@ function VideoForm({ video }) {
           freeSolo
           value={selectedLocation}
           onChange={(event, newValue) => setSelectedLocation(newValue)}
-          options={allLocations}
+          options={allLocations.sort()}
           getOptionLabel={(option) => option}
           isOptionEqualToValue={(option, value) => option === value}
-          renderInput={(params) => <TextField {...params} label="Location" />}
+          renderInput={(params) => (
+            <TextField {...params} label="Location (Not required)" />
+          )}
         />
       </FormControl>
       <FormControl>
-        <InputLabel id="person-label">Person</InputLabel>
+        <InputLabel id="person-label">People (Not required)</InputLabel>
         <Select
           labelId="person-label"
           id="select-multiple-chip"
@@ -132,11 +156,17 @@ function VideoForm({ video }) {
             },
           }}
         >
-          {allPeople.map((person) => (
-            <MenuItem key={person.id} value={person}>
-              {person.first_name} {person.last_name} {person.suffix || ""}
-            </MenuItem>
-          ))}
+          {allPeople
+            .sort((a, b) => {
+              const firstNameCompare = a.first_name.localeCompare(b.first_name);
+              if (firstNameCompare !== 0) return firstNameCompare;
+              return a.last_name.localeCompare(b.last_name);
+            })
+            .map((person) => (
+              <MenuItem key={person.id} value={person}>
+                {person.first_name} {person.last_name} {person.suffix || ""}
+              </MenuItem>
+            ))}
         </Select>
       </FormControl>
       <FormControl>
@@ -144,9 +174,23 @@ function VideoForm({ video }) {
           className="location-button"
           variant="contained"
           onClick={onFormSubmit}
+          disabled={
+            submitStatus === "submitting" ||
+            (!selectedLocation && !yearValue && newTaggedPeople.length === 0)
+          }
         >
-          Submit
+          {submitStatus === "submitting" ? "Submitting..." : "Submit"}
         </Button>
+        {submitStatus === "success" && (
+          <Box sx={{ color: "success.main", textAlign: "center", mt: 1 }}>
+            Video updated successfully!
+          </Box>
+        )}
+        {submitStatus === "error" && (
+          <Box sx={{ color: "error.main", textAlign: "center", mt: 1 }}>
+            Failed to update video. Please try again.
+          </Box>
+        )}
       </FormControl>
     </div>
   );
