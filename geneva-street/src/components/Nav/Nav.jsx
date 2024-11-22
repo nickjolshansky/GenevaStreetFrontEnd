@@ -34,7 +34,9 @@ function Nav() {
         </Link>
       </Tooltip>
       <Tooltip title="Games">
+        <Link to="/games">
         <VideogameAssetIcon />
+        </Link>
       </Tooltip>
       <Tooltip title="New Person Form">
         <Link to="/add">
