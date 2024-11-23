@@ -1,7 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
-import CssBaseline from "@mui/material/CssBaseline";
 import VideoPage from "./components/Video/VideoPage/VideoPage.jsx";
 import Nav from "./components/Nav/Nav.jsx";
 import VideoSearch from "./components/Video/VideoSearch/VideoSearch";

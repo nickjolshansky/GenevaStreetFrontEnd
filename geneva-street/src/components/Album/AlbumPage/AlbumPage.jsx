@@ -208,7 +208,7 @@ function AlbumPage() {
                         key={albumPerson.id}
                       >
                         <img
-                          className="icon"
+                          className="icon-pic"
                           src={`${profilesrc}${albumPerson.picture}`}
                           alt={albumPerson.first_name}
                         />
@@ -222,20 +222,13 @@ function AlbumPage() {
                     <Select
                       sx={{
                         width: "100%",
-                        "& .MuiMenuItem-root.Mui-selected": {
-                          backgroundColor: "#2196f3", // bright blue background for selected items
-                          color: "white", // white text for selected items
-                          "&:hover": {
-                            backgroundColor: "#1976d2", // slightly darker blue on hover
-                          },
-                        },
                       }}
                       labelId="person-label"
                       id="select-multiple-chip"
                       multiple
                       value={newTaggedPeople}
                       onChange={(e) => setNewTaggedPeople(e.target.value)}
-                      input={<OutlinedInput label="Person" />}
+                      input={<OutlinedInput label="" />}
                       renderValue={(selected) => (
                         <Box
                           sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}

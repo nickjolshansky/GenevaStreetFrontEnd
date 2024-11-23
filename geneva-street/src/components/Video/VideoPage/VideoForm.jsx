@@ -101,13 +101,11 @@ function VideoForm({ video }) {
       <FormControl>
         <TextField
           sx={{
-            color: "black",
-            bgcolor: "accent.main",
             borderRadius: "4px",
           }}
           id="standard-basic"
           label="Year (Not required)"
-          variant="outlined"
+          variant="filled"
           value={yearValue}
           onChange={(e) => setYearValue(e.target.value)}
           type="number"
@@ -122,7 +120,11 @@ function VideoForm({ video }) {
           getOptionLabel={(option) => option}
           isOptionEqualToValue={(option, value) => option === value}
           renderInput={(params) => (
-            <TextField {...params} label="Location (Not required)" />
+            <TextField
+              variant="filled"
+              {...params}
+              label="Location (Not required)"
+            />
           )}
         />
       </FormControl>
@@ -134,7 +136,7 @@ function VideoForm({ video }) {
           multiple
           value={newTaggedPeople}
           onChange={(e) => setNewTaggedPeople(e.target.value)}
-          input={<OutlinedInput label="Person" />}
+          input={<OutlinedInput label="People (Not required)" />}
           renderValue={(selected) => (
             <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
               {selected.map((person) => (

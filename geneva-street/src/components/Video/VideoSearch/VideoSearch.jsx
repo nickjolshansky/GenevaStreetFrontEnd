@@ -160,15 +160,14 @@ function VideoSearch() {
         <Accordion
           disableGutters
           onChange={(e, isExpanded) => setSearchExpanded(isExpanded)}
-          sx={{ color: "red.contrast", bgcolor: "red.main" }}
         >
           <AccordionSummary expandIcon={<TuneIcon />}>
             <div className="search-input">
               <TextField
                 fullWidth
                 inputRef={searchTitleRef}
-                label={"Search Keyword"}
-                variant="outlined"
+                label="Search Keyword"
+                variant="filled"
                 onClick={(e) => e.stopPropagation()}
               />
               <Button
@@ -183,60 +182,63 @@ function VideoSearch() {
             </div>
           </AccordionSummary>
           <AccordionDetails>
-            <div id="icon-container-id" className="icon-container">
-              {allPeople.length > 0 &&
-                allPeople
-                  .sort((a, b) => {
-                    const firstNameCompare = a.first_name.localeCompare(
-                      b.first_name
-                    );
-                    if (firstNameCompare !== 0) return firstNameCompare;
-                    return a.last_name.localeCompare(b.last_name);
-                  })
-                  .map((person) => (
-                    <Tooltip title={person.first_name} key={person.id}>
-                      <img
-                        key={person.id}
-                        className={`icon ${
-                          selectedPeople.includes(person.id)
-                            ? "icon-selected"
-                            : ""
-                        }`}
-                        src={`${profilesrc}${person.picture}`}
-                        alt={person.first_name}
-                        onClick={(e) => onPersonSelect(e, person)}
-                      />
-                    </Tooltip>
-                  ))}
-            </div>
-            <div className="search-slider">
-              <span>{yearRange[0]}</span>
-              <Slider
-                value={yearRange}
-                onChange={(e, newValue) => setYearRange(newValue)}
-                valueLabelDisplay="auto"
-                min={1960}
-                max={2024}
-              />
-              <span>{yearRange[1]}</span>
-            </div>
-            <div className="search-location">
-              <Autocomplete
-                freeSolo
-                fullWidth
-                value={selectedLocation}
-                onChange={(e, newValue) => setSelectedLocation(newValue)}
-                options={allLocations.sort()}
-                getOptionLabel={(option) => option}
-                isOptionEqualToValue={(option, value) => option === value}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    label="Search Location"
-                    onClick={(e) => e.stopPropagation()}
-                  />
-                )}
-              />
+            <div className="search-accordion">
+              <div id="icon-container-id" className="icon-container">
+                {allPeople.length > 0 &&
+                  allPeople
+                    .sort((a, b) => {
+                      const firstNameCompare = a.first_name.localeCompare(
+                        b.first_name
+                      );
+                      if (firstNameCompare !== 0) return firstNameCompare;
+                      return a.last_name.localeCompare(b.last_name);
+                    })
+                    .map((person) => (
+                      <Tooltip title={person.first_name} key={person.id}>
+                        <img
+                          key={person.id}
+                          className={`icon ${
+                            selectedPeople.includes(person.id)
+                              ? "icon-selected"
+                              : ""
+                          }`}
+                          src={`${profilesrc}${person.picture}`}
+                          alt={person.first_name}
+                          onClick={(e) => onPersonSelect(e, person)}
+                        />
+                      </Tooltip>
+                    ))}
+              </div>
+              <div className="search-slider">
+                <span>{yearRange[0]}</span>
+                <Slider
+                  value={yearRange}
+                  onChange={(e, newValue) => setYearRange(newValue)}
+                  valueLabelDisplay="auto"
+                  min={1960}
+                  max={2024}
+                />
+                <span>{yearRange[1]}</span>
+              </div>
+              <div className="search-location">
+                <Autocomplete
+                  freeSolo
+                  fullWidth
+                  value={selectedLocation}
+                  onChange={(e, newValue) => setSelectedLocation(newValue)}
+                  options={allLocations.sort()}
+                  getOptionLabel={(option) => option}
+                  isOptionEqualToValue={(option, value) => option === value}
+                  renderInput={(params) => (
+                    <TextField
+                      variant="filled"
+                      {...params}
+                      label="Search Location"
+                      onClick={(e) => e.stopPropagation()}
+                    />
+                  )}
+                />
+              </div>
             </div>
           </AccordionDetails>
         </Accordion>

@@ -10,15 +10,17 @@ function AlbumCard({ album }) {
         alt={album.title}
         style={{ width: "100%", height: "auto" }}
       />
-      <h3>{album.title.toUpperCase()}</h3>
-      <h4>
-        {(
-          <>
-            {album.year} <br />
-          </>
-        ) ?? ""}
-        {album.location ?? ""}
-      </h4>
+      <div className="album-card-text">
+        <div className="album-card-title">{album.title.toUpperCase()}</div>
+        <div className="album-card-metadata">
+          {(
+            <>
+              {album.year} <br />
+            </>
+          ) ?? ""}
+          {album.location ?? ""}
+        </div>
+      </div>
     </div>
   );
 }

@@ -7,6 +7,7 @@ import CollectionsIcon from "@mui/icons-material/Collections";
 import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 import HowToVoteIcon from "@mui/icons-material/HowToVote";
 import VideogameAssetIcon from "@mui/icons-material/VideogameAsset";
+import ContactSupportIcon from "@mui/icons-material/ContactSupport";
 import { Link } from "react-router-dom";
 import { Tooltip } from "@mui/material";
 
@@ -16,6 +17,11 @@ function Nav() {
       <Tooltip title="Family Tree">
         <Link to="/person/1">
           <FamilyRestroomIcon />
+        </Link>
+      </Tooltip>
+      <Tooltip title="New Person Form">
+        <Link to="/add">
+          <PersonAddAlt1Icon />
         </Link>
       </Tooltip>
       <Tooltip title="Birthdays">
@@ -36,14 +42,15 @@ function Nav() {
       <Tooltip title="Games">
         <VideogameAssetIcon />
       </Tooltip>
-      <Tooltip title="New Person Form">
-        <Link to="/add">
-          <PersonAddAlt1Icon />
-        </Link>
+      <Tooltip title="Contact">
+        <ContactSupportIcon />
       </Tooltip>
+
+      {/*
       <Tooltip title="Vote">
         <HowToVoteIcon />
       </Tooltip>
+      */}
     </div>
   );
 }

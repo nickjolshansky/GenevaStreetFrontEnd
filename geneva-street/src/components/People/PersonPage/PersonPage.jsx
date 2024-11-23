@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { Button, Tooltip } from "@mui/material";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import PersonNameDisplay from "./PersonNameDisplay.jsx";
+import { theme } from "../../../theme/theme.js";
 
 function PersonPage() {
   const { id } = useParams();
@@ -126,11 +127,25 @@ function PersonPage() {
                   height: "100%",
                   minWidth: "10px",
                   maxWidth: "10px",
+                  color: "red.main",
+                  backgroundColor: "transparent",
+                  textTransform: "none",
+                  "&:hover": {
+                    backgroundColor: "transparent",
+                    color: theme.palette.red.main,
+                  },
+                  "&:focus": {
+                    backgroundColor: "transparent",
+                    outline: "none",
+                    boxShadow: "none",
+                    border: "none",
+                  },
                 }}
               >
                 <ArrowForwardIosIcon
                   style={{
                     transform: "scale(0.9) rotate(180deg)",
+                    color: theme.palette.red.main,
                   }}
                 />
               </Button>
@@ -142,16 +157,28 @@ function PersonPage() {
             {siblings.length > 1 ? (
               <Button
                 variant="text"
-                onClick={handleSiblingNext}
+                onClick={handleSiblingPrev}
                 style={{
                   height: "100%",
                   minWidth: "10px",
                   maxWidth: "10px",
+                  color: "red.main",
+                  backgroundColor: "transparent",
+                  textTransform: "none",
+                  "&:hover": {
+                    backgroundColor: "transparent",
+                    color: theme.palette.red.main,
+                  },
+                  "&:focus": {
+                    backgroundColor: "transparent",
+                    outline: "none",
+                  },
                 }}
               >
                 <ArrowForwardIosIcon
                   style={{
                     transform: "scale(0.9)",
+                    color: theme.palette.red.main,
                   }}
                 />
               </Button>

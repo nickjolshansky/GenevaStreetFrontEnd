@@ -7,10 +7,13 @@
   grid-template-rows: 30% 40% 30%;
   aspect-ratio: 1/1;
   gap: 4px;
-  color: black;
 }
 .grid-item {
   border-radius: 10px;
+}
+.grid-item img {
+  background-color: var(--brown-main);
+  aspect-ratio: 1/1;
 }
 
 .label {
@@ -22,7 +25,7 @@
 
 .parent-box {
   grid-column: 1 / span 3;
-  background-color: #d4a5a5;
+  background-color: var(--green-main);
   width: 100%;
   height: 100%;
   text-align: center;
@@ -32,18 +35,18 @@
 }
 
 .sibling-box {
-  background-color: #96ceb4;
+  background-color: var(--green-main);
   text-align: center;
   max-height: 100%;
 }
 .partner-box {
   grid-column: 3;
-  background-color: #71a29d;
+  background-color: var(--green-main);
 }
 
 .children-box {
   grid-column: 1 / span 3;
-  background-color: #d4a5a5;
+  background-color: var(--green-main);
   width: 100%;
   height: 100%;
   text-align: center;
@@ -54,7 +57,6 @@
 
 .main-person-box {
   grid-column: 2;
-  background-color: #ffeead;
 }
 
 .person-grid {
@@ -71,7 +73,7 @@
   max-width: 96%;
   max-height: 96%;
   margin: 2% auto;
-  object-fit: contain;
+  object-fit: cover;
   border-radius: 50%;
 }
 
@@ -97,8 +99,9 @@
   max-width: 96%;
   max-height: 96%;
   margin: 2% auto;
-  object-fit: contain;
+  object-fit: cover;
   border-radius: 50%;
+  aspect-ratio: 1/1;
 }
 .person-name {
   max-width: 100%;
@@ -108,15 +111,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: black;
-}
-
-.sibling-box a .person-grid .label {
-  color: black;
-}
-
-.partner-box a .person-grid .label {
-  color: black;
 }
 
 .person-dates {

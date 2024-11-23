@@ -1,22 +1,26 @@
 .app {
   width: 99dvw;
-  background-color: var(--background-main);
-  color: var(--background-contrast);
 }
 .under-nav {
   margin: 10dvh auto 10dvh;
 }
 
 ::-webkit-scrollbar {
-  width: 8px; /* width of the scrollbar */
-  height: 8px; /* height of the scrollbar */
+  width: 8px;
+  height: 8px;
+  border-radius: 15px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #9c9c9c; /* color of the scrollbar thumb */
-  border-radius: 4px; /* rounded corners */
+  background-color: var(--red-main) !important;
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-track {
-  background-color: #f0f0f0; /* color of the scrollbar track */
+  background-color: var(--brown-main) !important;
+  border-radius: 15px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--red-light) !important;
 }

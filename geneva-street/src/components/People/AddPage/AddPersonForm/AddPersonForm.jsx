@@ -121,7 +121,7 @@ const AddPersonForm = () => {
 
   return (
     <Container maxWidth="sm">
-      <Paper elevation={3} sx={{ p: 3, mt: 4 }}>
+      <Paper elevation={3} sx={{ p: 3, mt: 4, backgroundColor: "green.main" }}>
         <Typography variant="h5" component="h2" gutterBottom>
           Add New Person
         </Typography>
@@ -133,6 +133,7 @@ const AddPersonForm = () => {
             id="first_name"
             label="First Name"
             name="first_name"
+            variant="filled"
             value={formData.first_name}
             onChange={handleChange}
           />
@@ -143,6 +144,7 @@ const AddPersonForm = () => {
             id="last_name"
             label="Last Name"
             name="last_name"
+            variant="filled"
             value={formData.last_name}
             onChange={handleChange}
           />
@@ -150,8 +152,9 @@ const AddPersonForm = () => {
             margin="normal"
             fullWidth
             id="suffix"
-            label="Suffix (eg. III)(not required)"
+            label="Suffix (eg. III) (not required)"
             name="suffix"
+            variant="filled"
             value={formData.suffix}
             onChange={handleChange}
           />
@@ -161,6 +164,7 @@ const AddPersonForm = () => {
             id="nick_name"
             label="Nickname (not required)"
             name="nick_name"
+            variant="filled"
             value={formData.nick_name}
             onChange={handleChange}
           />
@@ -169,13 +173,25 @@ const AddPersonForm = () => {
               label="Date of Birth (not required)"
               value={formData.date_of_birth}
               onChange={handleDateChange("date_of_birth")}
-              slotProps={{ textField: { fullWidth: true, margin: "normal" } }}
+              slotProps={{
+                textField: {
+                  fullWidth: true,
+                  margin: "normal",
+                  variant: "filled",
+                },
+              }}
             />
             <DatePicker
               label="Date of Passing (not required)"
               value={formData.date_of_passing}
               onChange={handleDateChange("date_of_passing")}
-              slotProps={{ textField: { fullWidth: true, margin: "normal" } }}
+              slotProps={{
+                textField: {
+                  fullWidth: true,
+                  margin: "normal",
+                  variant: "filled",
+                },
+              }}
             />
           </LocalizationProvider>
           <input
@@ -192,14 +208,13 @@ const AddPersonForm = () => {
               fullWidth
               sx={{ mt: 2, mb: 2 }}
             >
-              Upload Picture
+              Upload Profile Picture
             </Button>
           </label>
           <Button
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 3, mb: 2 }}
             disabled={
               isSubmitting || !formData.first_name || !formData.last_name
             }

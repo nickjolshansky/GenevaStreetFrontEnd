@@ -1,5 +1,5 @@
 .album-title-card {
-  background-color: gray;
+  background-color: var(--green-main);
   border-radius: 20px;
   max-width: 40%;
   margin: 0 auto;
@@ -12,7 +12,7 @@
 }
 
 .album-title-card-thumbnail {
-  width: 50%;
+  max-width: 50%;
   margin: 0 auto;
   display: block;
   object-fit: contain;
@@ -26,7 +26,8 @@
   font-size: 16px;
 }
 .album-title-card-metadata > b {
-  font-size: 28px;
+  font-size: 20px;
+  line-height: 0.8rem;
 }
 
 .picture-masonry {
@@ -51,9 +52,8 @@
 }
 .picture:hover {
   box-sizing: border-box;
-  border: 2px solid #007bff;
+  outline: 5px solid var(--red-light);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  opacity: 0.8;
 }
 
 .modal-container {
@@ -67,9 +67,9 @@
   height: 90vh;
   outline: none;
   padding: 10px;
-  background-color: rgb(139, 137, 137);
+  background-color: var(--green-main);
   display: grid;
-  gap: 1rem;
+  gap: 0.1rem;
   grid-template-rows: 65% auto;
 }
 
@@ -102,7 +102,7 @@
   flex: 0 0 auto;
 }
 
-.icon {
+.icon-pic {
   width: 50px;
   height: 50px;
   margin-left: 10px;
@@ -111,49 +111,31 @@
   flex-shrink: 0;
   transition: transform 0.3s ease;
   object-fit: cover;
+  background-color: var(--brown-main);
 }
 
-.icon:hover {
-  transform: scale(1.3);
+.icon-pic:hover {
+  transform: scale(1.15);
 }
 
-.icon:last-child {
+.icon-pic:last-child {
   margin-right: 0;
-}
-
-.icon-container-vid::-webkit-scrollbar {
-  height: 8px;
-}
-
-.icon-container-vid::-webkit-scrollbar-track {
-  background: #333;
-  border-radius: 4px;
-}
-
-.icon-container-vid::-webkit-scrollbar-thumb {
-  background: #888;
-  border-radius: 4px;
-}
-
-.icon-container-vid::-webkit-scrollbar-thumb:hover {
-  background: #555;
 }
 
 .person-select {
   width: 100%;
   display: flex;
-  align-items: flex-start;
-  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .person-select > div {
   flex: 1;
 }
-
-.person-select button {
-  margin-top: 2rem;
+.person-select > button {
+  align-self: flex-end;
+  margin-bottom: 8px;
 }
-
 @media (max-width: 480px) {
   .album-title-card {
     flex-direction: column;

@@ -76,7 +76,15 @@ const AddRelationshipForm = () => {
 
   return (
     <Container maxWidth="sm">
-      <Paper elevation={3} sx={{ p: 3, mt: 4 }}>
+      <Paper
+        elevation={3}
+        sx={{
+          p: 3,
+          mt: 4,
+          backgroundColor: "green.main",
+          color: "green.contrast",
+        }}
+      >
         <Typography variant="h5" component="h2" gutterBottom>
           Connect two people together
         </Typography>
@@ -95,11 +103,16 @@ const AddRelationshipForm = () => {
               onChange={(e, newValue) => setSelectedRelatedPerson(newValue)}
               getOptionLabel={getPersonLabel}
               renderInput={(params) => (
-                <TextField {...params} label="Select Related Person" />
+                <TextField {...params} label="Select Person" variant="filled" />
               )}
             />
           </FormControl>
-          <Typography variant="h5" component="h4" marginLeft="1rem">
+          <Typography
+            variant="h5"
+            component="h4"
+            marginLeft="1rem"
+            marginTop="0.4rem"
+          >
             is a
           </Typography>
           <FormControl fullWidth margin="normal">
@@ -109,11 +122,20 @@ const AddRelationshipForm = () => {
               value={relType}
               onChange={(e, newValue) => setRelType(newValue)}
               renderInput={(params) => (
-                <TextField {...params} label="Relationship Type" />
+                <TextField
+                  {...params}
+                  label="Relationship Type"
+                  variant="filled"
+                />
               )}
             />
           </FormControl>
-          <Typography variant="h5" component="h2" marginLeft="1rem">
+          <Typography
+            variant="h5"
+            component="h2"
+            marginLeft="1rem"
+            marginTop="0.4rem"
+          >
             of
           </Typography>
           <FormControl fullWidth margin="normal">
@@ -130,7 +152,11 @@ const AddRelationshipForm = () => {
               onChange={(e, newValue) => setSelectedPerson(newValue)}
               getOptionLabel={getPersonLabel}
               renderInput={(params) => (
-                <TextField {...params} label="Select Person" />
+                <TextField
+                  {...params}
+                  label="Select Related Person"
+                  variant="filled"
+                />
               )}
             />
           </FormControl>
