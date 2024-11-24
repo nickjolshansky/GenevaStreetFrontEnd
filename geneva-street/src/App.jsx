@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, HashRouter } from "react-router-dom";
 import "./App.css";
 import VideoPage from "./components/Video/VideoPage/VideoPage.jsx";
 import Nav from "./components/Nav/Nav.jsx";
@@ -17,24 +17,26 @@ import ContactPage from "./components/Contact/ContactPage.jsx";
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <div className="app">
-        <Nav />
-        <div className="under-nav">
-          <Routes>
-            <Route path="/unity" element={<UnityTest />} />
-            <Route path="/videos" element={<VideoSearch />} />
-            <Route path="/videos/:id" element={<VideoPage />} />
-            <Route path="/albums" element={<AlbumGrid />} />
-            <Route path="/albums/:id" element={<AlbumPage />} />
-            <Route path="/person/:id" element={<PersonPage />} />
-            <Route path="/birthdays" element={<BirthdayPage />} />
-            <Route path="/add" element={<AddPage />} />
-            <Route path="/contact" element={<ContactPage />} />
-          </Routes>
+    <HashRouter>
+      <ThemeProvider theme={theme}>
+        <div className="app">
+          <Nav />
+          <div className="under-nav">
+            <Routes>
+              <Route path="/unity" element={<UnityTest />} />
+              <Route path="/videos" element={<VideoSearch />} />
+              <Route path="/videos/:id" element={<VideoPage />} />
+              <Route path="/albums" element={<AlbumGrid />} />
+              <Route path="/albums/:id" element={<AlbumPage />} />
+              <Route path="/person/:id" element={<PersonPage />} />
+              <Route path="/birthdays" element={<BirthdayPage />} />
+              <Route path="/add" element={<AddPage />} />
+              <Route path="/contact" element={<ContactPage />} />
+            </Routes>
+          </div>
         </div>
-      </div>
-    </ThemeProvider>
+      </ThemeProvider>
+    </HashRouter>
   );
 }
 
