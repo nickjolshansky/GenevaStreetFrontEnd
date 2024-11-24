@@ -13,6 +13,7 @@ import AlbumPage from "./components/Album/AlbumPage/AlbumPage.jsx";
 import PersonPage from "./components/People/PersonPage/PersonPage.jsx";
 import AddPage from "./components/People/AddPage/AddPage.jsx";
 import BirthdayPage from "./components/People/BirthdayPage/BirthdayPage.jsx";
+import ContactPage from "./components/Contact/ContactPage.jsx";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
             <Route path="/person/:id" element={<PersonPage />} />
             <Route path="/birthdays" element={<BirthdayPage />} />
             <Route path="/add" element={<AddPage />} />
+            <Route path="/contact" element={<ContactPage />} />
           </Routes>
         </div>
       </div>

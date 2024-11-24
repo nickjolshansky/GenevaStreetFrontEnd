@@ -1,5 +1,6 @@
 .album-title-card {
   background-color: var(--green-main);
+  color: black;
   border-radius: 20px;
   max-width: 40%;
   margin: 0 auto;

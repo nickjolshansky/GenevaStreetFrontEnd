@@ -43,7 +43,9 @@ function Nav() {
         <VideogameAssetIcon />
       </Tooltip>
       <Tooltip title="Contact">
-        <ContactSupportIcon />
+        <Link to="/contact">
+          <ContactSupportIcon />
+        </Link>
       </Tooltip>
 
       {/*
