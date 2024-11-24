@@ -41,7 +41,9 @@ const ContactPage = () => {
         <Typography variant="h5" component="h2">
           Feedback
         </Typography>
-        <Typography component="h4">Any comments are welcome</Typography>
+        <Typography component="h4">
+          If you find something wrong or just want to leave a comment
+        </Typography>
         <TextField
           margin="normal"
           required

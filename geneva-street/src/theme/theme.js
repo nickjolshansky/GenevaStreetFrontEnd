@@ -80,10 +80,13 @@ export const theme = createTheme({
           backgroundColor: theme.palette.red.main,
           color: theme.palette.red.contrast,
           "&:hover": {
-            backgroundColor: theme.palette.red.dark,
+            backgroundColor: theme.palette.red.light,
           },
           "&:active": {
-            backgroundColor: theme.palette.red.light,
+            backgroundColor: `${theme.palette.red.dark} !important`,
+          },
+          "&.Mui-active": {
+            backgroundColor: `${theme.palette.red.dark} !important`,
           },
         }),
       },
@@ -92,22 +95,22 @@ export const theme = createTheme({
       styleOverrides: {
         root: ({ theme }) => ({
           "& .MuiFilledInput-root": {
-            backgroundColor: theme.palette.green.dark, // Set initial background
+            backgroundColor: theme.palette.green.dark,
             color: theme.palette.green.contrast,
             "&:hover": {
-              backgroundColor: theme.palette.green.dark, // Keep the background green on hover
+              backgroundColor: theme.palette.green.dark,
             },
             "&.Mui-focused": {
-              backgroundColor: theme.palette.green.dark, // Keep the background green on focus
+              backgroundColor: theme.palette.green.dark,
             },
             "&.Mui-disabled": {
-              backgroundColor: theme.palette.grey[100], // Change background on disabled state
+              backgroundColor: theme.palette.grey[100],
             },
           },
           "& .MuiInputLabel-root": {
             color: theme.palette.green.contrast,
             "&.Mui-focused": {
-              color: theme.palette.green.contrast, // Keep label color consistent when focused
+              color: theme.palette.green.contrast,
             },
           },
           "& .MuiInputBase-root": {

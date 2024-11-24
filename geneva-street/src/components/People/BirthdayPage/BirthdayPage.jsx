@@ -118,7 +118,10 @@ const BirthdayPage = () => {
             variant="h5"
             gutterBottom
             color="primary"
-            sx={{ textAlign: "center", color: "green.contrast" }}
+            sx={{
+              textAlign: "center",
+              color: "green.contrast",
+            }}
           >
             🎉 Today's Birthdays
           </Typography>
@@ -127,8 +130,8 @@ const BirthdayPage = () => {
               key={`${person.first_name}-${person.last_name}`}
               sx={{
                 mb: 1,
-                backgroundColor: "primary.light",
-                color: "primary.contrastText",
+                backgroundColor: "cream.main",
+                color: "black",
                 textAlign: "center",
               }}
             >
