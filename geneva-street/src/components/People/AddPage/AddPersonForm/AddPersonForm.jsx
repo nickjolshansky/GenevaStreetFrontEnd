@@ -122,7 +122,12 @@ const AddPersonForm = () => {
   return (
     <Container maxWidth="sm">
       <Paper elevation={3} sx={{ p: 3, mt: 4, backgroundColor: "green.main" }}>
-        <Typography variant="h5" component="h2" gutterBottom>
+        <Typography
+          variant="h5"
+          component="h2"
+          gutterBottom
+          sx={{ color: "green.contrast" }}
+        >
           Add New Person
         </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate>

@@ -4,7 +4,7 @@ import { rootsrc, profilesrc } from "../../../utils/source.jsx";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Button, Tooltip } from "@mui/material";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import PersonNameDisplay from "./PersonNameDisplay.jsx";
 import { theme } from "../../../theme/theme.js";
 
@@ -142,10 +142,10 @@ function PersonPage() {
                   },
                 }}
               >
-                <ArrowForwardIosIcon
+                <PlayArrowIcon
                   style={{
                     transform: "scale(0.9) rotate(180deg)",
-                    color: theme.palette.red.main,
+                    color: theme.palette.orange.light,
                   }}
                 />
               </Button>
@@ -175,10 +175,10 @@ function PersonPage() {
                   },
                 }}
               >
-                <ArrowForwardIosIcon
+                <PlayArrowIcon
                   style={{
                     transform: "scale(0.9)",
-                    color: theme.palette.red.main,
+                    color: theme.palette.orange.light,
                   }}
                 />
               </Button>
