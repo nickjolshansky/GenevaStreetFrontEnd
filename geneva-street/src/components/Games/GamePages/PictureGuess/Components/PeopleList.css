@@ -1,0 +1,4 @@
+.people-list{
+    overflow: scroll;
+    cursor: default;
+}

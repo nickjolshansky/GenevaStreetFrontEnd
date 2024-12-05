@@ -1,7 +1,16 @@
-.picture-guess{
+.picture-guess-game{
     width: 100%;
     display: flex; 
     justify-content: center; 
     align-items: center; 
-    background-color: red;
+}
+
+.picture-window{
+    height: 50%;
+    width: 50%;
+    background-color: yellow;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
 }
