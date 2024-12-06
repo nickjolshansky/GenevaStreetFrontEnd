@@ -5,11 +5,7 @@ import { albumsrc, rootsrc } from "./../../../utils/source.jsx";
 function AlbumCard({ album }) {
   return (
     <div className="album-card">
-      <img
-        src={`${albumsrc}${album.thumbnail_file_name}`}
-        alt={album.title}
-        style={{ width: "100%", height: "auto" }}
-      />
+      <img src={`${albumsrc}${album.thumbnail_file_name}`} alt={album.title} />
       <div className="album-card-text">
         <div className="album-card-title">{album.title.toUpperCase()}</div>
         <div className="album-card-metadata">

@@ -1,18 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TextField, Button, Typography } from "@mui/material";
 import "./ContactPage.css";
 import { rootsrc } from "../../utils/source";
+import { jwtDecode } from "jwt-decode";
 
 const ContactPage = () => {
   const [feedbackText, setFeedbackText] = useState("");
-  const [feedbackPersonId, setFeedbackPersonId] = useState(1);
   const [submitted, setSubmitted] = useState(false);
+  const [userId, setUserId] = useState(null);
+
+  //get user id
+  useEffect(() => {
+    const jwt = localStorage.getItem("jwt");
+    if (jwt) {
+      const decodedToken = jwtDecode(jwt);
+      setUserId(parseInt(decodedToken.sub));
+    }
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const feedback = {
       feedbackText: feedbackText,
-      feedbackPersonId: feedbackPersonId,
+      feedbackPersonId: userId,
     };
 
     try {
@@ -61,7 +71,7 @@ const ContactPage = () => {
           type="submit"
           fullWidth
           variant="contained"
-          disabled={!feedbackText || !feedbackPersonId}
+          disabled={!feedbackText}
         >
           Submit
         </Button>

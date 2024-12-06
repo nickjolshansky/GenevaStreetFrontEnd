@@ -76,6 +76,12 @@ function VideoForm({ video }) {
             }
           );
         }
+
+        if (Object.keys(updateData).length === 0) {
+          setSubmitStatus("success");
+          setTimeout(() => setSubmitStatus(null), 3000);
+          return;
+        }
       }
 
       const response = await fetch(`${rootsrc}/Videos/${video.id}`, {
@@ -158,17 +164,11 @@ function VideoForm({ video }) {
             },
           }}
         >
-          {allPeople
-            .sort((a, b) => {
-              const firstNameCompare = a.first_name.localeCompare(b.first_name);
-              if (firstNameCompare !== 0) return firstNameCompare;
-              return a.last_name.localeCompare(b.last_name);
-            })
-            .map((person) => (
-              <MenuItem key={person.id} value={person}>
-                {person.first_name} {person.last_name} {person.suffix || ""}
-              </MenuItem>
-            ))}
+          {allPeople.map((person) => (
+            <MenuItem key={person.id} value={person}>
+              {person.first_name} {person.last_name} {person.suffix || ""}
+            </MenuItem>
+          ))}
         </Select>
       </FormControl>
       <FormControl>
@@ -184,12 +184,12 @@ function VideoForm({ video }) {
           {submitStatus === "submitting" ? "Submitting..." : "Submit"}
         </Button>
         {submitStatus === "success" && (
-          <Box sx={{ color: "success.main", textAlign: "center", mt: 1 }}>
+          <Box sx={{ color: "green.contrast", textAlign: "center", mt: 1 }}>
             Video updated successfully!
           </Box>
         )}
         {submitStatus === "error" && (
-          <Box sx={{ color: "error.main", textAlign: "center", mt: 1 }}>
+          <Box sx={{ color: "red.main", textAlign: "center", mt: 1 }}>
             Failed to update video. Please try again.
           </Box>
         )}

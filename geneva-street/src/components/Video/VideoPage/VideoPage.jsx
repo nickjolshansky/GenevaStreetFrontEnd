@@ -13,6 +13,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { rootsrc, thumbnailsrc, profilesrc } from "../../../utils/source";
 import VideoForm from "./VideoForm.jsx";
 import TVLink from "./TVLink/TVLink.jsx";
+import { jwtDecode } from "jwt-decode";
 
 function VideoPage() {
   const { id } = useParams();
@@ -22,6 +23,15 @@ function VideoPage() {
   const [comments, setComments] = useState([]);
   const [userComment, setUserComment] = useState("");
   const [refreshComments, setRefreshComments] = useState(0);
+  const [userId, setUserId] = useState(null);
+
+  useEffect(() => {
+    const jwt = localStorage.getItem("jwt");
+    if (jwt) {
+      const decodedToken = jwtDecode(jwt);
+      setUserId(parseInt(decodedToken.sub));
+    }
+  }, []);
 
   //video
   useEffect(() => {
@@ -76,7 +86,7 @@ function VideoPage() {
 
   function onCommentSubmit(userComment) {
     let commentObject = {
-      person_id: 1,
+      person_id: userId,
       video_id: video.id,
       comment_text: userComment,
     };

@@ -92,13 +92,7 @@ const AddRelationshipForm = () => {
           <FormControl fullWidth margin="normal">
             <Autocomplete
               id="related-person-select"
-              options={allPeople.sort((a, b) => {
-                const firstNameCompare = a.first_name.localeCompare(
-                  b.first_name
-                );
-                if (firstNameCompare !== 0) return firstNameCompare;
-                return a.last_name.localeCompare(b.last_name);
-              })}
+              options={allPeople}
               value={selectedRelatedPerson}
               onChange={(e, newValue) => setSelectedRelatedPerson(newValue)}
               getOptionLabel={getPersonLabel}
@@ -141,13 +135,7 @@ const AddRelationshipForm = () => {
           <FormControl fullWidth margin="normal">
             <Autocomplete
               id="person-select"
-              options={allPeople.sort((a, b) => {
-                const firstNameCompare = a.first_name.localeCompare(
-                  b.first_name
-                );
-                if (firstNameCompare !== 0) return firstNameCompare;
-                return a.last_name.localeCompare(b.last_name);
-              })}
+              options={allPeople}
               value={selectedPerson}
               onChange={(e, newValue) => setSelectedPerson(newValue)}
               getOptionLabel={getPersonLabel}

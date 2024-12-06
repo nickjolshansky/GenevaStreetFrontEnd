@@ -185,29 +185,21 @@ function VideoSearch() {
             <div className="search-accordion">
               <div id="icon-container-id" className="icon-container">
                 {allPeople.length > 0 &&
-                  allPeople
-                    .sort((a, b) => {
-                      const firstNameCompare = a.first_name.localeCompare(
-                        b.first_name
-                      );
-                      if (firstNameCompare !== 0) return firstNameCompare;
-                      return a.last_name.localeCompare(b.last_name);
-                    })
-                    .map((person) => (
-                      <Tooltip title={person.first_name} key={person.id}>
-                        <img
-                          key={person.id}
-                          className={`icon ${
-                            selectedPeople.includes(person.id)
-                              ? "icon-selected"
-                              : ""
-                          }`}
-                          src={`${profilesrc}${person.picture}`}
-                          alt={person.first_name}
-                          onClick={(e) => onPersonSelect(e, person)}
-                        />
-                      </Tooltip>
-                    ))}
+                  allPeople.map((person) => (
+                    <Tooltip title={person.first_name} key={person.id}>
+                      <img
+                        key={person.id}
+                        className={`icon ${
+                          selectedPeople.includes(person.id)
+                            ? "icon-selected"
+                            : ""
+                        }`}
+                        src={`${profilesrc}${person.picture}`}
+                        alt={person.first_name}
+                        onClick={(e) => onPersonSelect(e, person)}
+                      />
+                    </Tooltip>
+                  ))}
               </div>
               <div className="search-slider">
                 <span>{yearRange[0]}</span>

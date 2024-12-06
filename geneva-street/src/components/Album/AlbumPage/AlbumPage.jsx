@@ -156,7 +156,7 @@ function AlbumPage() {
               <div>{album.description}</div>
             </div>
 
-            <div>
+            <div className="album-title-card-created-by">
               Created by:
               {` ${album.creator.first_name} ${album.creator.last_name}`}
               <PictureUploader
@@ -244,20 +244,12 @@ function AlbumPage() {
                         </Box>
                       )}
                     >
-                      {allPeople
-                        .sort((a, b) => {
-                          const firstNameCompare = a.first_name.localeCompare(
-                            b.first_name
-                          );
-                          if (firstNameCompare !== 0) return firstNameCompare;
-                          return a.last_name.localeCompare(b.last_name);
-                        })
-                        .map((person) => (
-                          <MenuItem key={person.id} value={person}>
-                            {person.first_name} {person.last_name}
-                            {person.suffix || ""}
-                          </MenuItem>
-                        ))}
+                      {allPeople.map((person) => (
+                        <MenuItem key={person.id} value={person}>
+                          {person.first_name} {person.last_name}
+                          {person.suffix || ""}
+                        </MenuItem>
+                      ))}
                     </Select>
                   </div>
                   <Button variant="contained" onClick={onTagSubmit}>

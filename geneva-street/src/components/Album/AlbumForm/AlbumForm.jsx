@@ -11,6 +11,7 @@ import {
 import { rootsrc } from "../../../utils/source";
 import "./AlbumForm.css";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { jwtDecode } from "jwt-decode";
 
 function AlbumForm() {
   const [title, setTitle] = useState("");
@@ -20,6 +21,7 @@ function AlbumForm() {
   const [allLocations, setAllLocations] = useState([]);
   const [thumbnailFile, setThumbnailFile] = useState(null);
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
+  const [userId, setUserId] = useState(null);
 
   // Fetch all locations
   useEffect(() => {
@@ -37,6 +39,15 @@ function AlbumForm() {
       .catch((error) => {
         console.error("Error fetching all location data:", error);
       });
+  }, []);
+
+  //get user id
+  useEffect(() => {
+    const jwt = localStorage.getItem("jwt");
+    if (jwt) {
+      const decodedToken = jwtDecode(jwt);
+      setUserId(parseInt(decodedToken.sub));
+    }
   }, []);
 
   const handleThumbnailChange = (event) => {
@@ -59,7 +70,7 @@ function AlbumForm() {
       formData.append("description", description);
       formData.append("location", selectedLocation);
       formData.append("year", year);
-      formData.append("creator_id", "1");
+      formData.append("creator_id", userId);
       formData.append("thumbnail", thumbnailFile);
 
       const response = await fetch(`${rootsrc}/albums`, {

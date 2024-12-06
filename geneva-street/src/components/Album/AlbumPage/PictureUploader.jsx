@@ -1,9 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { rootsrc } from "../../../utils/source";
 import "./PictureUploader.css";
+import { jwtDecode } from "jwt-decode";
 
 function PictureUploader({ albumId, onUploadSuccess }) {
   const [isUploading, setIsUploading] = useState(false);
+  const [userId, setUserId] = useState(null);
+
+  //get user id
+  useEffect(() => {
+    const jwt = localStorage.getItem("jwt");
+    if (jwt) {
+      const decodedToken = jwtDecode(jwt);
+      setUserId(parseInt(decodedToken.sub));
+    }
+  }, []);
 
   const handleImageUpload = async (event) => {
     const files = event.target.files;
@@ -11,7 +22,7 @@ function PictureUploader({ albumId, onUploadSuccess }) {
 
     setIsUploading(true);
     const formData = new FormData();
-    formData.append("uploader_id", "1");
+    formData.append("uploader_id", userId);
     formData.append("album_id", albumId);
 
     for (let file of files) {

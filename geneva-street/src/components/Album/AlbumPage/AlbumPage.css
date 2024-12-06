@@ -1,6 +1,6 @@
 .album-title-card {
   background-color: var(--green-main);
-  color: black;
+  color: var(--green-contrast);
   border-radius: 20px;
   max-width: 40%;
   margin: 0 auto;
@@ -29,6 +29,10 @@
 .album-title-card-metadata > b {
   font-size: 20px;
   line-height: 0.8rem;
+}
+
+.album-title-card-created-by {
+  text-align: center;
 }
 
 .picture-masonry {
