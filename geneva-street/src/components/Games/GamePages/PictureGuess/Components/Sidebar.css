@@ -1,7 +1,6 @@
 .Sidebar-wrapper{
     width: 25%;
     height: 100%;
-    background-color: green;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -10,7 +9,6 @@
 .Sidebar-content{
     width: 100%;
     height: 50%;
-    background-color: red;
     display: flex;
     justify-content: center;
 }

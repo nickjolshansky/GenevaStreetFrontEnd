@@ -5,43 +5,82 @@ import Sidebar from "./Components/Sidebar";
 import PeopleList from "./Components/PeopleList";
 import DropDownSearch from "./Components/DropDownSearch";
 import { rootsrc } from "../../../../utils/source";
+import Countdown from "./Components/Countdown";
 
 function PictureGuess() {
 
   const [photos, setPhotos] = useState()
+  const [currPhoto, setCurrPhoto] = useState()
   const [allPeople, setAllPeople] = useState()
-  const [peopleInPhoto, setPeopleInPhoto] = useState()
+  const [peopleInPhoto, setPeopleInPhoto] = useState([])
   const [guessedPeople, setGuessedPeople] = useState([])
-  const [randomIndex, setRandomIndex] = useState()
 
   const peopleListData = {
     people: peopleInPhoto,
     guessedPeople: guessedPeople
   }
 
+  const calculateRandomIndex = (numberOfItems) => {
+    return Math.floor(Math.random() * numberOfItems)
+  }
+
   const updateGuessedPeople = (person) => {
-    setGuessedPeople([...guessedPeople, person.id])
-    console.log(guessedPeople)
+    let personFound = false
+    let updatedGuessedPeople = [...guessedPeople]
+
+    peopleInPhoto.forEach(currPerson => {
+      if(person.id === currPerson.id){
+        personFound = true
+      }
+    })
+
+    if(personFound){
+      updatedGuessedPeople = [...guessedPeople, person.id]
+    }
+    
+    setGuessedPeople(updatedGuessedPeople)
+
+    if(updatedGuessedPeople.length === peopleInPhoto.length){
+      
+      setGuessedPeople([])
+      const newPhoto = photos[calculateRandomIndex(photos.length)]
+      fetch(`${rootsrc}/pp/picture/${newPhoto.id}`)
+      .then((response) => response.json())
+      .then((response) => {
+        setPeopleInPhoto(response)
+      })
+      setCurrPhoto(newPhoto)
+    }
   }
 
   useEffect(() => { 
       fetch(`${rootsrc}/Pictures`)
+      .then((response) => response.json())
       .then(response => {
-          setPhotos(response.data)
-          const calculatedRandomIndex = Math.floor(Math.random() * response.data.length)
-          setRandomIndex(calculatedRandomIndex)
-          const photoID = response.data[calculatedRandomIndex].id
+        console.log( response )
+        if(response){
+          setPhotos(response)
+          const calculatedRandomIndex = calculateRandomIndex(response.length)
+          setCurrPhoto(response[calculatedRandomIndex])
+          const photoID = response[calculatedRandomIndex].id
           fetch(`${rootsrc}/pp/picture/${photoID}`)
-          .then(peopleResponse => {
-            setPeopleInPhoto(peopleResponse.data)
+          .then((response) => response.json())
+          .then(response => {
+            console.log( response )
+            setPeopleInPhoto(response)
           })
+        }
       })
   },[])
 
   useEffect(() => {
     fetch(`${rootsrc}/People`)
+    .then((response) => response.json())
     .then(response => {
-      setAllPeople(response.data)
+      console.log( response )
+      if(response){
+        setAllPeople(response)
+      }
     })
   },[])
 
@@ -49,8 +88,9 @@ function PictureGuess() {
     <div className="picture-guess-game">
       <Sidebar component={PeopleList} componentData={peopleListData}/>
         <div className="picture-window">
-          { photos && <BlurryPhotos photo={photos[randomIndex]}/>}
-          {allPeople && <DropDownSearch allPeople={allPeople} updateGuessed={updateGuessedPeople}/>}
+          { currPhoto && <Countdown/>}
+          { currPhoto && <BlurryPhotos photo={currPhoto}/>}
+          { allPeople && <DropDownSearch allPeople={allPeople} updateGuessed={updateGuessedPeople}/>}
         </div>
         <Sidebar component={PeopleList} componentData={peopleListData}/>
     </div>

@@ -1,3 +1,4 @@
+import "./BlurryPhoto.css"
 import {useState, useEffect} from "react"
 
 const BlurryPhotos = (props) => {
@@ -18,7 +19,7 @@ const BlurryPhotos = (props) => {
         className="photo"
         alt=""
         src={`https://genevastreet.ddns.net:8084/Pictures/${props.photo.file_name}`} 
-        style={{ filter: `blur(${blur}px)` }}
+        style={{ filter: `blur(${blur}px)`,  }}
     />
 }
 

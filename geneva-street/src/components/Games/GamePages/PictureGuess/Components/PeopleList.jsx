@@ -1,3 +1,4 @@
+import "./PeopleList.css"
 import React from 'react'
 
 export default function PeopleList(props) {
