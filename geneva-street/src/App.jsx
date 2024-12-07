@@ -16,14 +16,18 @@ import BirthdayPage from "./components/People/BirthdayPage/BirthdayPage.jsx";
 import ContactPage from "./components/Contact/ContactPage.jsx";
 import LoginPage from "./components/People/Login/LoginPage.jsx";
 
-// Add this ProtectedRoute component
 const ProtectedRoute = ({ children }) => {
   const token = localStorage.getItem("jwt");
   const isTokenValid = (token) => {
     if (!token) return false;
     try {
       const payload = JSON.parse(atob(token.split(".")[1]));
-      return payload.exp > Date.now() / 1000;
+      if (payload.exp < Date.now() / 1000) {
+        localStorage.removeItem("jwt");
+        console.log("removed");
+        return false;
+      }
+      return true;
     } catch (error) {
       return false;
     }

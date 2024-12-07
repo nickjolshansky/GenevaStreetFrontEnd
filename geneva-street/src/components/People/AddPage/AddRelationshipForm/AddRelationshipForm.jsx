@@ -166,12 +166,12 @@ const AddRelationshipForm = () => {
               : "Add Relationship"}
           </Button>
           {submitStatus === "success" && (
-            <Typography color="success.main" textAlign="center">
+            <Typography color="green.contrast" textAlign="center">
               Relationship added successfully!
             </Typography>
           )}
           {submitStatus === "error" && (
-            <Typography color="error.main" textAlign="center">
+            <Typography color="red.main" textAlign="center">
               Failed to add relationship. Please try again.
             </Typography>
           )}

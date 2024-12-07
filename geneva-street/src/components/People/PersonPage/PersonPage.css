@@ -126,3 +126,20 @@
   outline: none !important;
   background-color: transparent !important;
 }
+
+.profile-picture.clickable:hover {
+  cursor: pointer;
+  outline: 4px dashed var(--red-main);
+}
+
+.upload-label {
+  display: inline-block;
+}
+
+.profile-picture-container {
+  position: relative;
+}
+
+.upload-label:hover .profile-picture.clickable {
+  opacity: 0.7;
+}

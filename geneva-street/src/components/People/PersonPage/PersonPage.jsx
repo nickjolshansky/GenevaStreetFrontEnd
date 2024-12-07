@@ -7,9 +7,11 @@ import { Button, Tooltip } from "@mui/material";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import PersonNameDisplay from "./PersonNameDisplay.jsx";
 import { theme } from "../../../theme/theme.js";
+import { jwtDecode } from "jwt-decode";
 
 function PersonPage() {
   const { id } = useParams();
+  const [userId, setUserId] = useState(null);
   const [person, setPerson] = useState(null);
   const [relationships, setRelationships] = useState(null);
   const [currentSiblingIndex, setCurrentSiblingIndex] = useState(0);
@@ -17,6 +19,8 @@ function PersonPage() {
   const [siblings, setSiblings] = useState([]);
   const [children, setChildren] = useState([]);
   const [partner, setPartner] = useState(null);
+  const [isUploading, setIsUploading] = useState(false);
+  const [imageUpdateTime, setImageUpdateTime] = useState(Date.now());
 
   // Fetch person data
   useEffect(() => {
@@ -29,6 +33,15 @@ function PersonPage() {
         console.error("Error fetching video data:", error);
       });
   }, [id]);
+
+  //get user id
+  useEffect(() => {
+    const jwt = localStorage.getItem("jwt");
+    if (jwt) {
+      const decodedToken = jwtDecode(jwt);
+      setUserId(parseInt(decodedToken.sub));
+    }
+  }, []);
 
   // Fetch person relationship data
   useEffect(() => {
@@ -79,6 +92,52 @@ function PersonPage() {
     setCurrentSiblingIndex((prevIndex) =>
       prevIndex < siblings.length - 1 ? prevIndex + 1 : 0
     );
+  };
+
+  const handleImageUpload = async (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    // Validate file type (only allow images)
+    const validImageTypes = [
+      "image/jpg",
+      "image/jpeg",
+      "image/png",
+      "image/gif",
+    ];
+    if (!validImageTypes.includes(file.type)) {
+      alert("Only JPEG, PNG, or GIF images are allowed.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("id", userId);
+
+    setIsUploading(true);
+
+    try {
+      const response = await fetch(`${rootsrc}/people/update-picture`, {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response.ok) {
+        const updatedPerson = await response.json();
+        console.log(updatedPerson);
+        setPerson(updatedPerson);
+        setImageUpdateTime(Date.now());
+        window.location.reload();
+      } else {
+        console.error("Failed to upload image:", response.statusText);
+        alert("Failed to update profile picture.");
+      }
+    } catch (error) {
+      console.error("Error uploading image:", error);
+      alert("An error occurred while uploading the image.");
+    } finally {
+      setIsUploading(false);
+    }
   };
 
   return (
@@ -157,7 +216,7 @@ function PersonPage() {
             {siblings.length > 1 ? (
               <Button
                 variant="text"
-                onClick={handleSiblingPrev}
+                onClick={handleSiblingNext}
                 style={{
                   height: "100%",
                   minWidth: "10px",
@@ -210,7 +269,30 @@ function PersonPage() {
         {person !== null && (
           <div className="person-grid">
             <div className="label">Person</div>
-            <img src={`${profilesrc}${person.picture}`} alt={person.name} />
+            {parseInt(id) === userId ? (
+              <label htmlFor="upload-input" className="upload-label">
+                <img
+                  src={`${profilesrc}${person.picture}?t=${imageUpdateTime}`}
+                  alt={person.name}
+                  className="profile-picture clickable"
+                />
+                {isUploading && <p>Uploading...</p>}
+                <input
+                  id="upload-input"
+                  type="file"
+                  accept="image/*"
+                  disabled={isUploading}
+                  onChange={handleImageUpload}
+                  style={{ display: "none" }}
+                />
+              </label>
+            ) : (
+              <img
+                src={`${profilesrc}${person.picture}`}
+                alt={person.name}
+                className="profile-picture"
+              />
+            )}
             <PersonNameDisplay person={person} />
           </div>
         )}
