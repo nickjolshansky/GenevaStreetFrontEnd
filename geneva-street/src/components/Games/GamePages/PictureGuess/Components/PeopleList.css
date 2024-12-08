@@ -1,0 +1,6 @@
+.people-list{
+    overflow: scroll;
+    cursor: default;
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}

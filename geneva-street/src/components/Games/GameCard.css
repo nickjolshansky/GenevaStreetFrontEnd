@@ -1,0 +1,14 @@
+.game-card{
+    height: 93%;
+    background-color: blue;
+    padding: 10px;
+    padding-bottom: 5px;
+    background-color: var(--primary-dark);
+    color: var(--primary-contrast);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-decoration: none;
+}
