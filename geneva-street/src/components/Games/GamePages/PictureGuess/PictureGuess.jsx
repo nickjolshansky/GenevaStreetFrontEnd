@@ -120,6 +120,7 @@ function PictureGuess() {
       <Sidebar component={PeopleList} componentData={peopleListData} />
       <div className="picture-window">
         {currPhoto && <Countdown postScore={postScore} />}
+        {score}
         {currPhoto && <BlurryPhotos photo={currPhoto} />}
         {allPeople && (
           <DropDownSearch

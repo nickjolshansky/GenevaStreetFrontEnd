@@ -4,7 +4,7 @@ const Countdown = (props) => {
   // Convert initial minutes to seconds
 
   const initialMinutes = 0;
-  const initialSeconds = 10;
+  const initialSeconds = 30;
 
   const initialTime = initialMinutes * 60 + initialSeconds;
 
