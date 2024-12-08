@@ -107,15 +107,23 @@
 .person-name {
   max-width: 100%;
   height: auto;
-  font-size: 16px;
+  font-size: 18px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-
 .person-dates {
-  font-size: 12px;
+  font-size: 14px;
+}
+@media (max-width: 600px) {
+  .person-name {
+    font-size: 12px;
+  }
+
+  .person-dates {
+    font-size: 10px;
+  }
 }
 
 .empty {

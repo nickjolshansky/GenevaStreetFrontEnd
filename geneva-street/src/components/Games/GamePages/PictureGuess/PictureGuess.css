@@ -1,14 +1,15 @@
-.picture-guess-game{
-    width: 100%;
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
+.picture-guess-game {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.picture-window{
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
+.picture-window {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  gap: 1rem;
 }

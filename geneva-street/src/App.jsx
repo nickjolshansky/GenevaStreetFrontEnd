@@ -15,6 +15,7 @@ import AddPage from "./components/People/AddPage/AddPage.jsx";
 import BirthdayPage from "./components/People/BirthdayPage/BirthdayPage.jsx";
 import ContactPage from "./components/Contact/ContactPage.jsx";
 import LoginPage from "./components/People/Login/LoginPage.jsx";
+import PictureGuess from "./components/Games/GamePages/PictureGuess/PictureGuess";
 
 const ProtectedRoute = ({ children }) => {
   const token = localStorage.getItem("jwt");
@@ -113,6 +114,14 @@ function App() {
                 element={
                   <ProtectedRoute>
                     <AddPage />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/games"
+                element={
+                  <ProtectedRoute>
+                    <PictureGuess />
                   </ProtectedRoute>
                 }
               />

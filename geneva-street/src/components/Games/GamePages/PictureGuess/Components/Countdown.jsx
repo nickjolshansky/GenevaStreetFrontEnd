@@ -1,18 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
-const Countdown = () => {
+const Countdown = (props) => {
   // Convert initial minutes to seconds
 
-  const initialMinutes = 3
-  const initialSeconds = 0
+  const initialMinutes = 0;
+  const initialSeconds = 10;
 
-  const initialTime = (initialMinutes * 60) + initialSeconds;
+  const initialTime = initialMinutes * 60 + initialSeconds;
 
   const [timeLeft, setTimeLeft] = useState(initialTime);
 
   useEffect(() => {
     // If timeLeft is 0, stop the timer
-    if (timeLeft <= 0) return;
+    if (timeLeft <= 0) {
+      props.postScore();
+      return;
+    }
 
     // Start the countdown interval
     const interval = setInterval(() => {
@@ -28,11 +31,10 @@ const Countdown = () => {
   const seconds = timeLeft % 60;
 
   return (
-    <div>
-      <h1>
-        {minutes < 10 ? `0${minutes}` : minutes}:{seconds < 10 ? `0${seconds}` : seconds}
-      </h1>
-    </div>
+    <h1>
+      {minutes < 10 ? `0${minutes}` : minutes}:
+      {seconds < 10 ? `0${seconds}` : seconds}
+    </h1>
   );
 };
 
