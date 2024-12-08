@@ -4,6 +4,9 @@
   margin: 1rem auto;
 }
 .search-accordion {
+  outline: thick double;
+  outline-color: var(--brown-main);
+  padding: 5px;
 }
 
 .search-input {
@@ -28,6 +31,7 @@
   padding: 10px;
   display: flex;
   overflow-x: auto;
+  overflow-y: hidden;
   white-space: nowrap;
   max-width: 95%;
   height: 60px;
@@ -39,14 +43,14 @@
   height: 50px;
   margin-right: 10px;
   border-radius: 50%;
-  background-color: aqua;
+  background-color: var(--brown-main);
   flex-shrink: 0;
   transition: transform 0.3s ease;
   object-fit: fill;
 }
 
 .icon:hover {
-  transform: scale(1.1);
+  transform: scale(1.15);
 }
 
 .icon:last-child {
@@ -58,21 +62,15 @@
 }
 
 .icon-container::-webkit-scrollbar-track {
-  background: #333;
+  background: var(--brown-main);
   border-radius: 4px;
 }
 
 .icon-container::-webkit-scrollbar-thumb {
-  background: #888;
+  background: var(--red-main);
   border-radius: 4px;
 }
 
-.icon-container::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}
-
 .icon-selected {
-  width: 45px;
-  height: 45px;
-  border: solid rgb(222, 29, 29) 4px;
+  outline: solid var(--red-light) 2px;
 }

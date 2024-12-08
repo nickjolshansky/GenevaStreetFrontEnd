@@ -76,6 +76,12 @@ function VideoForm({ video }) {
             }
           );
         }
+
+        if (Object.keys(updateData).length === 0) {
+          setSubmitStatus("success");
+          setTimeout(() => setSubmitStatus(null), 3000);
+          return;
+        }
       }
 
       const response = await fetch(`${rootsrc}/Videos/${video.id}`, {
@@ -101,13 +107,11 @@ function VideoForm({ video }) {
       <FormControl>
         <TextField
           sx={{
-            color: "black",
-            bgcolor: "accent.main",
             borderRadius: "4px",
           }}
           id="standard-basic"
           label="Year (Not required)"
-          variant="outlined"
+          variant="filled"
           value={yearValue}
           onChange={(e) => setYearValue(e.target.value)}
           type="number"
@@ -122,7 +126,11 @@ function VideoForm({ video }) {
           getOptionLabel={(option) => option}
           isOptionEqualToValue={(option, value) => option === value}
           renderInput={(params) => (
-            <TextField {...params} label="Location (Not required)" />
+            <TextField
+              variant="filled"
+              {...params}
+              label="Location (Not required)"
+            />
           )}
         />
       </FormControl>
@@ -134,7 +142,7 @@ function VideoForm({ video }) {
           multiple
           value={newTaggedPeople}
           onChange={(e) => setNewTaggedPeople(e.target.value)}
-          input={<OutlinedInput label="Person" />}
+          input={<OutlinedInput label="People (Not required)" />}
           renderValue={(selected) => (
             <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
               {selected.map((person) => (
@@ -156,17 +164,11 @@ function VideoForm({ video }) {
             },
           }}
         >
-          {allPeople
-            .sort((a, b) => {
-              const firstNameCompare = a.first_name.localeCompare(b.first_name);
-              if (firstNameCompare !== 0) return firstNameCompare;
-              return a.last_name.localeCompare(b.last_name);
-            })
-            .map((person) => (
-              <MenuItem key={person.id} value={person}>
-                {person.first_name} {person.last_name} {person.suffix || ""}
-              </MenuItem>
-            ))}
+          {allPeople.map((person) => (
+            <MenuItem key={person.id} value={person}>
+              {person.first_name} {person.last_name} {person.suffix || ""}
+            </MenuItem>
+          ))}
         </Select>
       </FormControl>
       <FormControl>
@@ -182,12 +184,12 @@ function VideoForm({ video }) {
           {submitStatus === "submitting" ? "Submitting..." : "Submit"}
         </Button>
         {submitStatus === "success" && (
-          <Box sx={{ color: "success.main", textAlign: "center", mt: 1 }}>
+          <Box sx={{ color: "green.contrast", textAlign: "center", mt: 1 }}>
             Video updated successfully!
           </Box>
         )}
         {submitStatus === "error" && (
-          <Box sx={{ color: "error.main", textAlign: "center", mt: 1 }}>
+          <Box sx={{ color: "red.main", textAlign: "center", mt: 1 }}>
             Failed to update video. Please try again.
           </Box>
         )}

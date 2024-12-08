@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Nav.css";
 import FamilyRestroomIcon from "@mui/icons-material/FamilyRestroom";
 import CakeIcon from "@mui/icons-material/Cake";
@@ -7,15 +7,33 @@ import CollectionsIcon from "@mui/icons-material/Collections";
 import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 import HowToVoteIcon from "@mui/icons-material/HowToVote";
 import VideogameAssetIcon from "@mui/icons-material/VideogameAsset";
+import ContactSupportIcon from "@mui/icons-material/ContactSupport";
+import VpnKeyIcon from "@mui/icons-material/VpnKey";
 import { Link } from "react-router-dom";
 import { Tooltip } from "@mui/material";
+import { jwtDecode } from "jwt-decode";
 
 function Nav() {
+  const [userId, setUserId] = useState(null);
+
+  useEffect(() => {
+    const jwt = localStorage.getItem("jwt");
+    if (jwt) {
+      const decodedToken = jwtDecode(jwt);
+      setUserId(parseInt(decodedToken.sub));
+    }
+  }, []);
+
   return (
     <div className="nav">
       <Tooltip title="Family Tree">
-        <Link to="/person/1">
+        <Link to={`/person/${userId}`}>
           <FamilyRestroomIcon />
+        </Link>
+      </Tooltip>
+      <Tooltip title="New Person Form">
+        <Link to="/add">
+          <PersonAddAlt1Icon />
         </Link>
       </Tooltip>
       <Tooltip title="Birthdays">
@@ -33,19 +51,28 @@ function Nav() {
           <CollectionsIcon />
         </Link>
       </Tooltip>
+      <Tooltip title="Contact">
+        <Link to="/contact">
+          <ContactSupportIcon />
+        </Link>
+      </Tooltip>
+      <Tooltip title="Login">
+        <Link to="/login">
+          <VpnKeyIcon />
+        </Link>
+      </Tooltip>
+
+      {/*
       <Tooltip title="Games">
         <Link to="/games">
-        <VideogameAssetIcon />
+          <VideogameAssetIcon />
         </Link>
       </Tooltip>
-      <Tooltip title="New Person Form">
-        <Link to="/add">
-          <PersonAddAlt1Icon />
-        </Link>
-      </Tooltip>
+
       <Tooltip title="Vote">
         <HowToVoteIcon />
       </Tooltip>
+      */}
     </div>
   );
 }

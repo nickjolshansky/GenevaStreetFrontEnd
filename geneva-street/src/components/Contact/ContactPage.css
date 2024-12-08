@@ -1,0 +1,23 @@
+.contact-page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.contact-form {
+  width: 80%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  margin: 1rem;
+  background-color: var(--green-main);
+}
+
+.success-message {
+  color: var(--green-contrast);
+  font-weight: bold;
+  text-align: center;
+}

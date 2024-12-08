@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import "./VideoCard.css";
 import { thumbnailsrc } from "./../../../utils/source";
+import staticImg from "../../../../public/static.jpg";
 
 function VideoCard({ video }) {
   const [hasLoaded, setHasLoaded] = useState(false);
-  const [imageSrc, setImageSrc] = useState("/static.jpg");
+  const [imageSrc, setImageSrc] = useState(staticImg);
   const thumbnailUrl = `${thumbnailsrc}${video.thumbnail}`;
 
   const handleImageLoad = () => {
@@ -21,8 +22,8 @@ function VideoCard({ video }) {
         onError={() => setHasLoaded(true)}
         style={{ width: "100%", height: "auto" }}
       />
-      <h4>{video.title.toUpperCase()}</h4>
-      <h5>{video.year ?? ""}</h5>
+      <h5>{video.title.toUpperCase()}</h5>
+      <p>{video.year ?? ""}</p>
     </div>
   );
 }

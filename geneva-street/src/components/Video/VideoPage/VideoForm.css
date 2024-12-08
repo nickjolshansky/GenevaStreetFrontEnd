@@ -3,4 +3,7 @@
   gap: 0.5rem;
   flex-direction: column;
   justify-content: space-between;
+  outline: thick double;
+  outline-color: var(--brown-main);
+  padding: 5px;
 }

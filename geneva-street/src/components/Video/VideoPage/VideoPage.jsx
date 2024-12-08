@@ -12,7 +12,8 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useParams, useNavigate } from "react-router-dom";
 import { rootsrc, thumbnailsrc, profilesrc } from "../../../utils/source";
 import VideoForm from "./VideoForm.jsx";
-import TVLink from "../../TVLink/TVLink.jsx";
+import TVLink from "./TVLink/TVLink.jsx";
+import { jwtDecode } from "jwt-decode";
 
 function VideoPage() {
   const { id } = useParams();
@@ -22,6 +23,15 @@ function VideoPage() {
   const [comments, setComments] = useState([]);
   const [userComment, setUserComment] = useState("");
   const [refreshComments, setRefreshComments] = useState(0);
+  const [userId, setUserId] = useState(null);
+
+  useEffect(() => {
+    const jwt = localStorage.getItem("jwt");
+    if (jwt) {
+      const decodedToken = jwtDecode(jwt);
+      setUserId(parseInt(decodedToken.sub));
+    }
+  }, []);
 
   //video
   useEffect(() => {
@@ -76,7 +86,7 @@ function VideoPage() {
 
   function onCommentSubmit(userComment) {
     let commentObject = {
-      person_id: 1,
+      person_id: userId,
       video_id: video.id,
       comment_text: userComment,
     };
@@ -112,7 +122,6 @@ function VideoPage() {
 
       <Accordion
         sx={{
-          bgcolor: "secondary.main",
           width: "100%",
         }}
       >
@@ -139,7 +148,7 @@ function VideoPage() {
                 {videoPeople.map((person) => (
                   <Tooltip title={person.first_name} key={person.id}>
                     <img
-                      className="icon"
+                      className="icon-vid"
                       src={`${profilesrc}${person.picture}`}
                       alt={person.first_name}
                     />
@@ -173,7 +182,6 @@ function VideoPage() {
 
       <Accordion
         sx={{
-          bgcolor: "primary.main",
           width: "100%",
         }}
       >
@@ -185,41 +193,48 @@ function VideoPage() {
         </AccordionDetails>
       </Accordion>
 
-      <Accordion className="comments-container">
+      <Accordion
+        className="comments-accordion"
+        sx={{
+          width: "100%",
+        }}
+      >
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           Comments
         </AccordionSummary>
         <AccordionDetails>
-          {comments.map((comment) => (
-            <div className="comment" key={comment.id}>
-              <Tooltip title={comment.person.first_name}>
-                <img
-                  className="comment-icon"
-                  src={`${profilesrc}${comment.person.picture}`}
-                  alt={comment.person.first_name}
-                />
-              </Tooltip>
-              <span>{comment.comment_text}</span>
+          <div className="comments-container">
+            {comments.map((comment) => (
+              <div className="comment" key={comment.id}>
+                <Tooltip title={comment.person.first_name}>
+                  <img
+                    className="comment-icon"
+                    src={`${profilesrc}${comment.person.picture}`}
+                    alt={comment.person.first_name}
+                  />
+                </Tooltip>
+                <span>{comment.comment_text}</span>
+              </div>
+            ))}
+            <div className="add-comment-container">
+              <TextField
+                className="comment-textfield"
+                label="Add a comment"
+                variant="filled"
+                value={userComment}
+                onChange={(e) => setUserComment(e.target.value)}
+              />
+              <Button
+                variant="contained"
+                onClick={() => onCommentSubmit(userComment)}
+                disabled={!userComment}
+                sx={{
+                  width: "100%",
+                }}
+              >
+                Submit
+              </Button>
             </div>
-          ))}
-          <div className="add-comment-container">
-            <TextField
-              className="comment-textfield"
-              label="Add a comment"
-              variant="filled"
-              value={userComment}
-              onChange={(e) => setUserComment(e.target.value)}
-            />
-            <Button
-              variant="contained"
-              onClick={() => onCommentSubmit(userComment)}
-              disabled={!userComment}
-              sx={{
-                width: "100%",
-              }}
-            >
-              Submit
-            </Button>
           </div>
         </AccordionDetails>
       </Accordion>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./TVLink.css";
 import TvIcon from "@mui/icons-material/Tv";
+import tvImg from "../../../../../public/tv.png";
 
 function TVLink({ year }) {
   const yearLinkMap = {
@@ -75,7 +76,7 @@ function TVLink({ year }) {
       target="_blank"
       rel="noopener noreferrer"
     >
-      <img src="/tv.png" />
+      <img src={tvImg} />
       <div className="tv-link-text">Watch tv from the year {year}!</div>
     </a>
   ) : null;

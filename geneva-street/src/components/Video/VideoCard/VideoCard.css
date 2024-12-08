@@ -2,8 +2,7 @@
   height: 93%;
   padding: 10px;
   padding-bottom: 5px;
-  background-color: var(--primary-dark);
-  color: var(--primary-contrast);
+  background-color: var(--green-main);
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -19,14 +18,22 @@
   aspect-ratio: 16/9;
   background-color: black;
 }
-.video-card > h4 {
+.video-card > h5 {
   width: 100%;
   margin: 0;
   padding: 0;
   text-align: center;
+  color: var(--cream-light);
 }
-.video-card > h5 {
+
+.video-card > p {
+  width: 100%;
   margin: 0;
   padding: 0;
   text-align: center;
+  color: var(--cream-light);
+}
+
+p {
+  font-size: 14px;
 }

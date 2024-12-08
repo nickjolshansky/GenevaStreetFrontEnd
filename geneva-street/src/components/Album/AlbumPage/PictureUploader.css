@@ -8,8 +8,8 @@
 }
 
 .upload-button {
-  background-color: #007bff;
-  color: white;
+  background-color: var(--red-main);
+  color: var(--red-contrast);
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
@@ -17,5 +17,5 @@
 }
 
 .upload-button:hover {
-  background-color: #0056b3;
+  background-color: var(--red-light);
 }

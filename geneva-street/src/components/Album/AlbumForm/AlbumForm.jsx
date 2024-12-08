@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Button,
   TextField,
@@ -11,16 +11,17 @@ import {
 import { rootsrc } from "../../../utils/source";
 import "./AlbumForm.css";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { jwtDecode } from "jwt-decode";
 
 function AlbumForm() {
-  const titleRef = useRef();
-  const descriptionRef = useRef();
-  const yearRef = useRef();
-  const thumbnailFileInput = useRef();
-
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [year, setYear] = useState("");
   const [selectedLocation, setSelectedLocation] = useState(null);
   const [allLocations, setAllLocations] = useState([]);
   const [thumbnailFile, setThumbnailFile] = useState(null);
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
+  const [userId, setUserId] = useState(null);
 
   // Fetch all locations
   useEffect(() => {
@@ -40,18 +41,36 @@ function AlbumForm() {
       });
   }, []);
 
+  //get user id
+  useEffect(() => {
+    const jwt = localStorage.getItem("jwt");
+    if (jwt) {
+      const decodedToken = jwtDecode(jwt);
+      setUserId(parseInt(decodedToken.sub));
+    }
+  }, []);
+
   const handleThumbnailChange = (event) => {
     setThumbnailFile(event.target.files[0]);
   };
 
+  // Form validation
+  useEffect(() => {
+    if (title && thumbnailFile) {
+      setIsSubmitDisabled(false);
+    } else {
+      setIsSubmitDisabled(true);
+    }
+  }, [title, thumbnailFile]);
+
   const onFormSubmit = async () => {
     try {
       const formData = new FormData();
-      formData.append("title", titleRef.current.value);
-      formData.append("description", descriptionRef.current.value);
+      formData.append("title", title);
+      formData.append("description", description);
       formData.append("location", selectedLocation);
-      formData.append("year", yearRef.current.value);
-      formData.append("creator_id", "1");
+      formData.append("year", year);
+      formData.append("creator_id", userId);
       formData.append("thumbnail", thumbnailFile);
 
       const response = await fetch(`${rootsrc}/albums`, {
@@ -64,14 +83,12 @@ function AlbumForm() {
       window.location.reload();
     } catch (error) {
       console.error("Error uploading images:", error);
-    } finally {
-      setIsUploading(false);
     }
   };
 
   return (
     <div className="album-form-container">
-      <Accordion sx={{}} className="album-form-accordion">
+      <Accordion className="album-form-accordion">
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
           Create a new album
         </AccordionSummary>
@@ -79,19 +96,19 @@ function AlbumForm() {
           <div className="album-form">
             <FormControl>
               <TextField
-                id="standard-basic"
                 label="Title"
-                variant="outlined"
-                inputRef={titleRef}
+                variant="filled"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
               />
             </FormControl>
             <FormControl>
               <TextField
-                id="standard-basic"
-                label="Year"
-                variant="outlined"
-                inputRef={yearRef}
+                label="Year (Not required)"
+                variant="filled"
                 type="number"
+                value={year}
+                onChange={(e) => setYear(e.target.value)}
               />
             </FormControl>
             <FormControl>
@@ -106,7 +123,8 @@ function AlbumForm() {
                 renderInput={(params) => (
                   <TextField
                     {...params}
-                    label="Search Location"
+                    variant="filled"
+                    label="Location (Not required)"
                     onClick={(e) => e.stopPropagation()}
                   />
                 )}
@@ -114,28 +132,34 @@ function AlbumForm() {
             </FormControl>
             <FormControl>
               <TextField
-                id="standard-basic"
-                label="Description"
-                variant="outlined"
-                inputRef={descriptionRef}
+                label="Description (Not required)"
+                variant="filled"
                 multiline
                 rows={4}
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
               />
             </FormControl>
             <FormControl>
-              Upload Thumbnail
               <input
+                style={{ display: "none" }}
+                id="picture-upload"
                 type="file"
                 accept="image/*"
                 onChange={handleThumbnailChange}
-                ref={thumbnailFileInput}
               />
+              <label htmlFor="picture-upload">
+                <Button variant="contained" component="span" fullWidth>
+                  Upload Album Thumbnail
+                </Button>
+              </label>
             </FormControl>
             <FormControl>
               <Button
-                className="location-button"
                 variant="contained"
                 onClick={onFormSubmit}
+                sx={{ marginTop: "10px" }}
+                disabled={isSubmitDisabled}
               >
                 Submit
               </Button>

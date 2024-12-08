@@ -76,7 +76,15 @@ const AddRelationshipForm = () => {
 
   return (
     <Container maxWidth="sm">
-      <Paper elevation={3} sx={{ p: 3, mt: 4 }}>
+      <Paper
+        elevation={3}
+        sx={{
+          p: 3,
+          mt: 4,
+          backgroundColor: "green.main",
+          color: "green.contrast",
+        }}
+      >
         <Typography variant="h5" component="h2" gutterBottom>
           Connect two people together
         </Typography>
@@ -84,22 +92,21 @@ const AddRelationshipForm = () => {
           <FormControl fullWidth margin="normal">
             <Autocomplete
               id="related-person-select"
-              options={allPeople.sort((a, b) => {
-                const firstNameCompare = a.first_name.localeCompare(
-                  b.first_name
-                );
-                if (firstNameCompare !== 0) return firstNameCompare;
-                return a.last_name.localeCompare(b.last_name);
-              })}
+              options={allPeople}
               value={selectedRelatedPerson}
               onChange={(e, newValue) => setSelectedRelatedPerson(newValue)}
               getOptionLabel={getPersonLabel}
               renderInput={(params) => (
-                <TextField {...params} label="Select Related Person" />
+                <TextField {...params} label="Select Person" variant="filled" />
               )}
             />
           </FormControl>
-          <Typography variant="h5" component="h4" marginLeft="1rem">
+          <Typography
+            variant="h5"
+            component="h4"
+            marginLeft="1rem"
+            marginTop="0.4rem"
+          >
             is a
           </Typography>
           <FormControl fullWidth margin="normal">
@@ -109,28 +116,35 @@ const AddRelationshipForm = () => {
               value={relType}
               onChange={(e, newValue) => setRelType(newValue)}
               renderInput={(params) => (
-                <TextField {...params} label="Relationship Type" />
+                <TextField
+                  {...params}
+                  label="Relationship Type"
+                  variant="filled"
+                />
               )}
             />
           </FormControl>
-          <Typography variant="h5" component="h2" marginLeft="1rem">
+          <Typography
+            variant="h5"
+            component="h2"
+            marginLeft="1rem"
+            marginTop="0.4rem"
+          >
             of
           </Typography>
           <FormControl fullWidth margin="normal">
             <Autocomplete
               id="person-select"
-              options={allPeople.sort((a, b) => {
-                const firstNameCompare = a.first_name.localeCompare(
-                  b.first_name
-                );
-                if (firstNameCompare !== 0) return firstNameCompare;
-                return a.last_name.localeCompare(b.last_name);
-              })}
+              options={allPeople}
               value={selectedPerson}
               onChange={(e, newValue) => setSelectedPerson(newValue)}
               getOptionLabel={getPersonLabel}
               renderInput={(params) => (
-                <TextField {...params} label="Select Person" />
+                <TextField
+                  {...params}
+                  label="Select Related Person"
+                  variant="filled"
+                />
               )}
             />
           </FormControl>
@@ -152,12 +166,12 @@ const AddRelationshipForm = () => {
               : "Add Relationship"}
           </Button>
           {submitStatus === "success" && (
-            <Typography color="success.main" textAlign="center">
+            <Typography color="green.contrast" textAlign="center">
               Relationship added successfully!
             </Typography>
           )}
           {submitStatus === "error" && (
-            <Typography color="error.main" textAlign="center">
+            <Typography color="red.main" textAlign="center">
               Failed to add relationship. Please try again.
             </Typography>
           )}

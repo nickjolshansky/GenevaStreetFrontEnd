@@ -100,7 +100,16 @@ const BirthdayPage = () => {
 
   return (
     <Box
-      sx={{ maxWidth: 600, margin: "0 auto", padding: 2, textAlign: "center" }}
+      sx={{
+        maxWidth: 600,
+        maxHeight: "70dvh",
+        overflowY: "auto",
+        margin: "0 auto",
+        padding: 2,
+        textAlign: "center",
+        backgroundColor: "green.main",
+        color: "green.contrast",
+      }}
     >
       {/* Today's Birthdays */}
       {todaysBirthdays.length > 0 && (
@@ -109,7 +118,10 @@ const BirthdayPage = () => {
             variant="h5"
             gutterBottom
             color="primary"
-            sx={{ textAlign: "center" }}
+            sx={{
+              textAlign: "center",
+              color: "green.contrast",
+            }}
           >
             🎉 Today's Birthdays
           </Typography>
@@ -118,8 +130,8 @@ const BirthdayPage = () => {
               key={`${person.first_name}-${person.last_name}`}
               sx={{
                 mb: 1,
-                backgroundColor: "primary.light",
-                color: "primary.contrastText",
+                backgroundColor: "cream.main",
+                color: "black",
                 textAlign: "center",
               }}
             >
@@ -137,19 +149,32 @@ const BirthdayPage = () => {
       )}
 
       {/* Other Birthdays This Month */}
-      <Paper elevation={2}>
+      <Paper
+        elevation={2}
+        sx={{ backgroundColor: "green.main", color: "green.contrast" }}
+      >
         <Typography
-          variant="h6"
-          sx={{ p: 2, backgroundColor: "grey.100", textAlign: "center" }}
+          variant="h5"
+          sx={{
+            p: 1,
+            backgroundColor: "green.main",
+            textAlign: "center",
+          }}
         >
           Birthdays This Month
         </Typography>
-        <List sx={{ textAlign: "center" }}>
-          {otherBirthdays.map((person) => (
-            <ListItem key={`${person.first_name}-${person.last_name}`}>
+        <List sx={{ textAlign: "center", color: "green.contrast" }}>
+          {otherBirthdays.map((person, index) => (
+            <ListItem
+              key={`${person.first_name}-${person.last_name}`}
+              sx={{
+                backgroundColor: index % 2 === 0 ? "green.dark" : "green.main", // Alternating background color
+              }}
+            >
               <ListItemText
                 sx={{ textAlign: "center" }}
                 primary={`${person.first_name} ${person.last_name}`}
+                secondaryTypographyProps={{ sx: { color: "green.contrast" } }}
                 secondary={dayjs(person.date_of_birth).format("MMMM D")}
               />
             </ListItem>
@@ -158,7 +183,7 @@ const BirthdayPage = () => {
             <ListItem>
               <ListItemText
                 sx={{ textAlign: "center" }}
-                primary="No other birthdays this month"
+                primary="No birthdays this month"
               />
             </ListItem>
           )}
