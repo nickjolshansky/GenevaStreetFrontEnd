@@ -8,6 +8,7 @@ import { rootsrc } from "../../../../utils/source";
 import Countdown from "./Components/Countdown";
 import { jwtDecode } from "jwt-decode";
 import IngameScore from "./Components/IngameScore";
+import GameOver from "../../GameOver";
 
 function PictureGuess() {
   const [photos, setPhotos] = useState();
@@ -17,6 +18,7 @@ function PictureGuess() {
   const [guessedPeople, setGuessedPeople] = useState([]);
   const [score, setScore] = useState(0);
   const [userId, setUserId] = useState(null);
+  const [isOver,setIsOver] = useState(false)
 
   //get user id
   useEffect(() => {
@@ -45,7 +47,7 @@ function PictureGuess() {
   const postScore = () => {
     const postData = {
       person_id: userId,
-      game_title: "picture-blitz",
+      game_title: 'test',
       score: score,
     };
 
@@ -116,11 +118,13 @@ function PictureGuess() {
       });
   }, []);
 
-  return (
+
+
+if(!isOver) { return (
     <div className="picture-guess-game">
       <Sidebar component={PeopleList} componentData={peopleListData} />
       <div className="picture-window">
-        {currPhoto && <Countdown postScore={postScore} />}
+        {currPhoto && <Countdown setIsOver={setIsOver} postScore={postScore} />}
         {currPhoto && <BlurryPhotos photo={currPhoto} />}
         {allPeople && (
           <DropDownSearch
@@ -131,7 +135,10 @@ function PictureGuess() {
       </div>
       <Sidebar component={IngameScore} componentData={score} />
     </div>
-  );
+  )
+}else{
+  return <GameOver score={score}/>
+}
 }
 
 export default PictureGuess;

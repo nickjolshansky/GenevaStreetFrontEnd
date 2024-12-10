@@ -8,7 +8,7 @@ const BlurryPhotos = (props) => {
     setBlur(20);
     const interval = setInterval(() => {
       setBlur((prev) => Math.max(prev - 1, 0));
-    }, 1000);
+    }, 2000);
 
     return () => clearInterval(interval);
   }, [props.photo]);
