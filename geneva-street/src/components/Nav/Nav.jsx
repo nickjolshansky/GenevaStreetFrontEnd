@@ -51,6 +51,11 @@ function Nav() {
           <CollectionsIcon />
         </Link>
       </Tooltip>
+      <Tooltip title="Games">
+        <Link to="/games">
+          <VideogameAssetIcon />
+        </Link>
+      </Tooltip>
       <Tooltip title="Contact">
         <Link to="/contact">
           <ContactSupportIcon />

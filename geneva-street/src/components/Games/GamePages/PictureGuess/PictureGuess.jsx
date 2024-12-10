@@ -7,6 +7,7 @@ import DropDownSearch from "./Components/DropDownSearch";
 import { rootsrc } from "../../../../utils/source";
 import Countdown from "./Components/Countdown";
 import { jwtDecode } from "jwt-decode";
+import IngameScore from "./Components/IngameScore";
 
 function PictureGuess() {
   const [photos, setPhotos] = useState();
@@ -120,7 +121,6 @@ function PictureGuess() {
       <Sidebar component={PeopleList} componentData={peopleListData} />
       <div className="picture-window">
         {currPhoto && <Countdown postScore={postScore} />}
-        {score}
         {currPhoto && <BlurryPhotos photo={currPhoto} />}
         {allPeople && (
           <DropDownSearch
@@ -129,7 +129,7 @@ function PictureGuess() {
           />
         )}
       </div>
-      <Sidebar component={PeopleList} componentData={peopleListData} />
+      <Sidebar component={IngameScore} componentData={score} />
     </div>
   );
 }

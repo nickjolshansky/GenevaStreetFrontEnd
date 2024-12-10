@@ -3,8 +3,8 @@ import React, { useState, useEffect } from "react";
 const Countdown = (props) => {
   // Convert initial minutes to seconds
 
-  const initialMinutes = 0;
-  const initialSeconds = 30;
+  const initialMinutes = 3;
+  const initialSeconds = 0;
 
   const initialTime = initialMinutes * 60 + initialSeconds;
 
