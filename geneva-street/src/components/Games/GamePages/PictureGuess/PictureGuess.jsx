@@ -171,7 +171,9 @@ function PictureGuess() {
         />
       )}
     </div>
-  )}}
+  )}else{
+    return <GameOver score={score} highscore={highscore}/>
+  }}
 }
 
 export default PictureGuess;
