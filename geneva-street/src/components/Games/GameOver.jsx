@@ -1,8 +1,9 @@
 import { Typography } from "@mui/material";
 import React, { useEffect, useState } from 'react';
 import Confetti from 'react-confetti';
+import { jwtDecode } from "jwt-decode";
 import "./GameOver.css"
-import { rootsrc } from "../../utils/source";
+import Score from "./Score";
 
 
 export default function GameOver(props){
@@ -10,8 +11,19 @@ export default function GameOver(props){
     const [userId, setUserId] = useState(null);
     const [userBestScore, setUserBestScore] = useState()
 
+    let isHighscoreBeaten = false;
+    let isHighscoreTied = false;
+
+    if(props.score > props.highscore){
+        isHighscoreBeaten = true
+    }
+    if(props.score === props.highscore){
+        isHighscoreTied = true
+    }
+
     //get user id
     useEffect(() => {
+
         const jwt = localStorage.getItem("jwt");
         if (jwt) {
             const decodedToken = jwtDecode(jwt);
@@ -19,21 +31,14 @@ export default function GameOver(props){
         }
     }, []);
 
-    //middle of working on this one, make sure the responses is an array, and you loop for which game you want.
+    
 
-    // useEffect(() => {
-    //     fetch(rootsrc + "/scores/person/" + userId)
-    //     .then((response) => response.json())
-    //     .then({response} => {
-    //         response.forEach(game => {
-                
-    //         });
-    //     })
-    // },[])
-
-    return <div className="score-page">
-        <Confetti/>
-        <Typography fontSize={36}>Final Score:</Typography>
-        <Typography fontSize={24}>{props.score}</Typography>
-    </div>
+    return <>
+    {isHighscoreBeaten && <Confetti className="confetti" width={window.innerWidth} height={window.innerHeight}/>}
+        <div className="score-page">
+            {isHighscoreBeaten && <Typography fontSize={36}>You beat your highscore!</Typography>}
+            {isHighscoreTied && <Typography fontSize={36}>So close... You tied your highscore!</Typography>}
+            <Score data={{currScore:props.score,highscore:props.highscore}} />
+        </div>
+        </>
 }

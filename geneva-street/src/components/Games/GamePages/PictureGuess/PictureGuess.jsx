@@ -7,8 +7,9 @@ import DropDownSearch from "./Components/DropDownSearch";
 import { rootsrc } from "../../../../utils/source";
 import Countdown from "./Components/Countdown";
 import { jwtDecode } from "jwt-decode";
-import IngameScore from "./Components/IngameScore";
+import Score from "../../Score";
 import GameOver from "../../GameOver";
+import { useMediaQuery } from 'react-responsive';
 
 function PictureGuess() {
   const [photos, setPhotos] = useState();
@@ -16,9 +17,13 @@ function PictureGuess() {
   const [allPeople, setAllPeople] = useState();
   const [peopleInPhoto, setPeopleInPhoto] = useState([]);
   const [guessedPeople, setGuessedPeople] = useState([]);
+  const [highscore, setHighscore] = useState(0)
   const [score, setScore] = useState(0);
   const [userId, setUserId] = useState(null);
   const [isOver,setIsOver] = useState(false)
+
+  const gameTitle = "picture-blitz"
+  const isWideScreen = useMediaQuery({ query: '(min-width: 900px)' });
 
   //get user id
   useEffect(() => {
@@ -41,13 +46,12 @@ function PictureGuess() {
   const updateScore = () => {
     const newScore = score + 10;
     setScore(newScore);
-    console.log(newScore);
   };
 
   const postScore = () => {
     const postData = {
       person_id: userId,
-      game_title: 'test',
+      game_title: gameTitle,
       score: score,
     };
 
@@ -59,6 +63,20 @@ function PictureGuess() {
       body: JSON.stringify(postData),
     });
   };
+
+  useEffect(() => {
+    console.log(gameTitle)
+    console.log(userId)
+    if(userId){
+      fetch(rootsrc + "/scores/" + gameTitle + "/" + userId)
+      .then((response) => response.json())
+      .then((response) => {
+        if(response.status !== 404){
+          setHighscore(response.score)
+        }
+    })
+    }
+  },[userId])
 
   const updateGuessedPeople = (person) => {
     let personFound = false;
@@ -90,7 +108,7 @@ function PictureGuess() {
   };
 
   useEffect(() => {
-    fetch(`${rootsrc}/Pictures`)
+    fetch(`${rootsrc}/pp/connected-pictures`)
       .then((response) => response.json())
       .then((response) => {
         if (response) {
@@ -111,34 +129,49 @@ function PictureGuess() {
     fetch(`${rootsrc}/People`)
       .then((response) => response.json())
       .then((response) => {
-        console.log(response);
         if (response) {
           setAllPeople(response);
         }
       });
   }, []);
 
-
-
-if(!isOver) { return (
-    <div className="picture-guess-game">
-      <Sidebar component={PeopleList} componentData={peopleListData} />
-      <div className="picture-window">
-        {currPhoto && <Countdown setIsOver={setIsOver} postScore={postScore} />}
-        {currPhoto && <BlurryPhotos photo={currPhoto} />}
-        {allPeople && (
-          <DropDownSearch
-            allPeople={allPeople}
-            updateGuessed={updateGuessedPeople}
-          />
-        )}
+  if(isWideScreen){
+    if(!isOver) { return (
+        <div className="picture-guess-game">
+          <Sidebar component={PeopleList} componentData={peopleListData} />
+          <div className="picture-window">
+            {currPhoto && <Countdown setIsOver={setIsOver} postScore={postScore} />}
+            {currPhoto && <BlurryPhotos photo={currPhoto} />}
+            {allPeople && (
+              <DropDownSearch
+                allPeople={allPeople}
+                updateGuessed={updateGuessedPeople}
+              />
+            )}
+          </div>
+          <Sidebar component={Score} componentData={{currScore:score,highscore:highscore}} />
+        </div>
+      )
+    }else{
+      return <GameOver score={score} highscore={highscore}/>
+    }
+  }else{ 
+    if(!isOver){return (
+    <div className="picture-guess-game-mobile">
+      {currPhoto && <Countdown setIsOver={setIsOver} postScore={postScore} />}
+      <Score data={{currScore:score,highscore:highscore}}/>
+      {currPhoto && <BlurryPhotos photo={currPhoto} />}
+      <div className="people-list-mobile">
+        <PeopleList data={peopleListData}/>
       </div>
-      <Sidebar component={IngameScore} componentData={score} />
+      {allPeople && (
+        <DropDownSearch
+        allPeople={allPeople}
+        updateGuessed={updateGuessedPeople}
+        />
+      )}
     </div>
-  )
-}else{
-  return <GameOver score={score}/>
-}
+  )}}
 }
 
 export default PictureGuess;

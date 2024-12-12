@@ -9,19 +9,21 @@ export default function DropDownSearch(props) {
     });
 
     const guess = (e,newValue) => {
-        console.log(newValue)
         if(newValue){
             props.updateGuessed(newValue)
         }
     }
 
+    const clearField = (e) => {
+        e.target.value = ""
+    }
+
     return (
         <Autocomplete
         onChange={guess}
-        disablePortal
         options={massageAllPeopleData}
         sx={{width: 300}}
-        renderInput={(params) => <TextField {...params} value={"test"} label={"Guess..."}></TextField>}
+        renderInput={(params) => <TextField onClick={clearField} {...params} value={"test"} label={"Guess..."}></TextField>}
         />
     )
 }

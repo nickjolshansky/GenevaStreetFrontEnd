@@ -5,6 +5,14 @@
   align-items: center;
 }
 
+.picture-guess-game-mobile {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .picture-window {
   width: 50%;
   display: flex;
@@ -12,4 +20,9 @@
   justify-content: space-around;
   align-items: center;
   gap: 1rem;
+}
+
+.people-list-mobile {
+  margin-top: 5vh;
+  margin-bottom: 5vh;
 }
