@@ -17,7 +17,7 @@ function AlbumForm() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [year, setYear] = useState("");
-  const [selectedLocation, setSelectedLocation] = useState(null);
+  const [selectedLocation, setSelectedLocation] = useState("");
   const [allLocations, setAllLocations] = useState([]);
   const [thumbnailFile, setThumbnailFile] = useState(null);
   const [isSubmitDisabled, setIsSubmitDisabled] = useState(true);
@@ -41,7 +41,7 @@ function AlbumForm() {
       });
   }, []);
 
-  //get user id
+  // Get user ID
   useEffect(() => {
     const jwt = localStorage.getItem("jwt");
     if (jwt) {
@@ -115,10 +115,14 @@ function AlbumForm() {
               <Autocomplete
                 freeSolo
                 fullWidth
-                value={selectedLocation}
-                onChange={(e, newValue) => setSelectedLocation(newValue)}
+                value={selectedLocation || ""}
+                onChange={(e, newValue) => setSelectedLocation(newValue || "")}
+                inputValue={selectedLocation || ""}
+                onInputChange={(e, newInputValue) =>
+                  setSelectedLocation(newInputValue || "")
+                }
                 options={allLocations}
-                getOptionLabel={(option) => option}
+                getOptionLabel={(option) => option || ""}
                 isOptionEqualToValue={(option, value) => option === value}
                 renderInput={(params) => (
                   <TextField
@@ -130,6 +134,7 @@ function AlbumForm() {
                 )}
               />
             </FormControl>
+
             <FormControl>
               <TextField
                 label="Description (Not required)"

@@ -112,11 +112,9 @@ function VideoSearch() {
   function onSubmit() {
     if (searchExpanded) {
       let searchTerms = {
-        title:
-          searchTitleRef.current.value.length === 0
-            ? null
-            : searchTitleRef.current.value,
-        yearRange: yearRange,
+        title: searchTitleRef.current.value,
+        yearRange:
+          yearRange[0] === 1960 && yearRange[1] === 2024 ? null : yearRange,
         people: selectedPeople.length === 0 ? null : selectedPeople,
         location: selectedLocation,
       };
@@ -130,6 +128,7 @@ function VideoSearch() {
       })
         .then((response) => response.json())
         .then((data) => {
+          console.log(data);
           setSearchedVideos(Array.isArray(data) ? data : []);
         })
         .catch((error) => {

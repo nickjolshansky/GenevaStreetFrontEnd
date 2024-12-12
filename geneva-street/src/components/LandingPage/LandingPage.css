@@ -1,0 +1,30 @@
+.landing-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.inspo-videos {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+iframe {
+  width: 30dvw;
+  aspect-ratio: 16/9;
+}
+
+@media (max-width: 680px) {
+  .inspo-videos {
+    flex-direction: column;
+  }
+
+  iframe {
+    width: 90dvw;
+    aspect-ratio: 16/9;
+  }
+}

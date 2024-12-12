@@ -9,6 +9,7 @@ import HowToVoteIcon from "@mui/icons-material/HowToVote";
 import VideogameAssetIcon from "@mui/icons-material/VideogameAsset";
 import ContactSupportIcon from "@mui/icons-material/ContactSupport";
 import VpnKeyIcon from "@mui/icons-material/VpnKey";
+import HomeIcon from "@mui/icons-material/Home";
 import { Link } from "react-router-dom";
 import { Tooltip } from "@mui/material";
 import { jwtDecode } from "jwt-decode";
@@ -26,6 +27,11 @@ function Nav() {
 
   return (
     <div className="nav">
+      <Tooltip title="Home Page">
+        <Link to={`/home`}>
+          <HomeIcon />
+        </Link>
+      </Tooltip>
       <Tooltip title="Family Tree">
         <Link to={`/person/${userId}`}>
           <FamilyRestroomIcon />
@@ -49,6 +55,11 @@ function Nav() {
       <Tooltip title="Photo Albums">
         <Link to="/albums">
           <CollectionsIcon />
+        </Link>
+      </Tooltip>
+      <Tooltip title="Games">
+        <Link to="/games">
+          <VideogameAssetIcon />
         </Link>
       </Tooltip>
       <Tooltip title="Contact">

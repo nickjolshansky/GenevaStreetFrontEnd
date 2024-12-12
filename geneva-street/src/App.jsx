@@ -16,28 +16,42 @@ import BirthdayPage from "./components/People/BirthdayPage/BirthdayPage.jsx";
 import ContactPage from "./components/Contact/ContactPage.jsx";
 import LoginPage from "./components/People/Login/LoginPage.jsx";
 import PictureGuess from "./components/Games/GamePages/PictureGuess/PictureGuess";
+import LandingPage from "./components/LandingPage/LandingPage.jsx";
 
 const ProtectedRoute = ({ children }) => {
+  console.log("in function");
   const token = localStorage.getItem("jwt");
   const isTokenValid = (token) => {
-    if (!token) return false;
+    console.log("in valid");
+    if (!token) {
+      console.log("in !token");
+      return false;
+    }
     try {
+      console.log("in try");
       const payload = JSON.parse(atob(token.split(".")[1]));
       if (payload.exp < Date.now() / 1000) {
+        console.log("if exp");
         localStorage.removeItem("jwt");
         console.log("removed");
         return false;
       }
+      console.log("after if exp");
       return true;
     } catch (error) {
+      console.log("error catch");
       return false;
     }
   };
 
+  console.log("after isValid");
+
   if (!token || !isTokenValid(token)) {
+    console.log("navigate to login");
     return <Navigate to="/login" replace />;
   }
 
+  console.log("children");
   return children;
 };
 
@@ -53,6 +67,14 @@ function App() {
               <Route path="/login" element={<LoginPage />} />
 
               {/* Protected routes */}
+              <Route
+                path="/home"
+                element={
+                  <ProtectedRoute>
+                    <LandingPage />
+                  </ProtectedRoute>
+                }
+              />
               <Route
                 path="/unity"
                 element={
@@ -139,7 +161,7 @@ function App() {
                 path="/"
                 element={
                   <ProtectedRoute>
-                    <Navigate to="/videos" replace />
+                    <Navigate to="/home" replace />
                   </ProtectedRoute>
                 }
               />
@@ -149,7 +171,7 @@ function App() {
                 path="*"
                 element={
                   <ProtectedRoute>
-                    <Navigate to="/videos" replace />
+                    <Navigate to="/home" replace />
                   </ProtectedRoute>
                 }
               />
