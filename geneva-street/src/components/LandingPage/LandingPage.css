@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 2rem;
+  gap: 1rem;
 }
 
 .inspo-videos {
@@ -18,6 +18,30 @@ iframe {
   aspect-ratio: 16/9;
 }
 
+.logo {
+  width: 500px;
+  max-width: 80%;
+}
+
+.title {
+  margin-top: 2rem;
+  font-size: 26px;
+  max-width: 60%;
+  text-align: center;
+  font-weight: 700;
+  line-height: 1.9rem;
+}
+
+p {
+  font-size: 18px;
+  max-width: 60%;
+}
+
+.forgotten {
+  font-size: 18px;
+  text-align: left;
+}
+
 @media (max-width: 680px) {
   .inspo-videos {
     flex-direction: column;
@@ -26,5 +50,17 @@ iframe {
   iframe {
     width: 90dvw;
     aspect-ratio: 16/9;
+  }
+
+  .title {
+    font-size: 26px;
+    text-align: center;
+    max-width: 80%;
+  }
+
+  p {
+    font-size: 18px;
+    max-width: 80%;
+    text-align: center;
   }
 }
