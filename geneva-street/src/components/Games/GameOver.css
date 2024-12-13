@@ -1,0 +1,12 @@
+.score-page{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.confetti{
+    width: 95%;
+    justify-self: center;
+}

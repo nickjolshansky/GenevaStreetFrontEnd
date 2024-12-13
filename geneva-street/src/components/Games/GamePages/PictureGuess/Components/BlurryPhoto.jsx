@@ -2,13 +2,13 @@ import "./BlurryPhoto.css";
 import { useState, useEffect } from "react";
 
 const BlurryPhotos = (props) => {
-  const [blur, setBlur] = useState(20);
+  const [blur, setBlur] = useState(10);
 
   useEffect(() => {
-    setBlur(20);
+    setBlur(10);
     const interval = setInterval(() => {
       setBlur((prev) => Math.max(prev - 1, 0));
-    }, 1000);
+    }, 3000);
 
     return () => clearInterval(interval);
   }, [props.photo]);

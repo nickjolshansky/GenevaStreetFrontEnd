@@ -1,6 +1,5 @@
 .photo{
-   max-height:500px;
-   max-width:500px;
+   max-width: 60%;
    height:auto;
    width:auto;
 }

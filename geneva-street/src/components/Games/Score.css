@@ -1,0 +1,25 @@
+.score-area {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.score-text-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1vh;
+    margin-bottom:1vh
+}
+
+@media (max-width:900px) {
+    .score-area {
+        flex-direction: row;
+        justify-content: space-around;
+        size: 10%;
+        margin-top: 5vh;
+        margin-bottom:5vh
+    }
+}
