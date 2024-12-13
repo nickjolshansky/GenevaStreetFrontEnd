@@ -13,8 +13,8 @@
   text-align: left;
 }
 .login-form-container p {
-  margin-top: -0.2rem;
   text-align: left;
+  font-size: 12px;
 }
 
 .form {
