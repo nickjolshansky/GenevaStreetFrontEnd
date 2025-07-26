@@ -24,7 +24,7 @@ iframe {
 }
 
 p {
-  max-width: 60%;
+  /* max-width: 60%; */
   font-size: 18px;
   line-height: 1.2rem;
 }
