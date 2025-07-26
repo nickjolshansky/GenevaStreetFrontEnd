@@ -7,7 +7,7 @@ const LandingPage = () => {
   return (
     <div className="landing-page">
       <img src={logoImg} className="logo" />
-      <p>
+      <p className="text-body">
         Geneva Street is a grassroots attempt to digitize the records of our
         predecessors.
         <br />
@@ -27,7 +27,7 @@ const LandingPage = () => {
       <div className="forgotten">
         Here is to the forgotten familiar things that hideout in our memories.
       </div>
-      <p>
+      <p className="text-body">
         Special thanks to the fathers and children behind the camera. <br />
         <br />
         Special thanks to the mothers who always knew to keep the tapes and kept
@@ -56,7 +56,7 @@ const LandingPage = () => {
         ></iframe>
       </div>
 
-      <p>Version 1.0</p>
+      <p className="text-body">Version 1.0</p>
     </div>
   );
 };
