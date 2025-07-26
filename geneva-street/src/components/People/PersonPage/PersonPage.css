@@ -75,6 +75,8 @@
   margin: 2% auto;
   object-fit: cover;
   border-radius: 50%;
+  width: auto;
+  height: -webkit-fill-available;
 }
 
 /* people-flex and people-grid are meant to handle containers that will have more than 1 person in them at once */
