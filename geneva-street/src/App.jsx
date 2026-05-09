@@ -64,7 +64,6 @@ function App() {
           <div className="under-nav">
             <Routes>
               {/* Public route */}
-              <Route path="/login" element={<LoginPage />} />
               <Route path="/" element={<SorryPage />} />
 
               {/* Protected routes */}
