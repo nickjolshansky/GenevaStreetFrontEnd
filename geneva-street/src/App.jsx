@@ -1,4 +1,3 @@
-import React from "react";
 import { Routes, Route, HashRouter, Navigate } from "react-router-dom";
 import "./App.css";
 import VideoPage from "./components/Video/VideoPage/VideoPage.jsx";
@@ -17,6 +16,7 @@ import ContactPage from "./components/Contact/ContactPage.jsx";
 import LoginPage from "./components/People/Login/LoginPage.jsx";
 import PictureGuess from "./components/Games/GamePages/PictureGuess/PictureGuess";
 import LandingPage from "./components/LandingPage/LandingPage.jsx";
+import SorryPage from "./components/SorryPage.jsx";
 
 const ProtectedRoute = ({ children }) => {
   console.log("in function");
@@ -47,8 +47,8 @@ const ProtectedRoute = ({ children }) => {
   console.log("after isValid");
 
   if (!token || !isTokenValid(token)) {
-    console.log("navigate to login");
-    return <Navigate to="/login" replace />;
+    console.log("navigate to home");
+    //return <Navigate to="/" replace />;
   }
 
   console.log("children");
@@ -60,11 +60,12 @@ function App() {
     <HashRouter>
       <ThemeProvider theme={theme}>
         <div className="app">
-          <Nav />
+          {/* <Nav /> */}
           <div className="under-nav">
             <Routes>
               {/* Public route */}
               <Route path="/login" element={<LoginPage />} />
+              <Route path="/" element={<SorryPage />} />
 
               {/* Protected routes */}
               <Route
