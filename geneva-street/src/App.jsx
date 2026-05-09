@@ -48,7 +48,7 @@ const ProtectedRoute = ({ children }) => {
 
   if (!token || !isTokenValid(token)) {
     console.log("navigate to home");
-    //return <Navigate to="/" replace />;
+    return <Navigate to="/" replace />;
   }
 
   console.log("children");
